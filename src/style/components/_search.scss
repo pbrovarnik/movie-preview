@@ -5,15 +5,15 @@
 
 	&__field {
 		width: 35vw;
-		height: 3.2rem;
+		height: 3rem;
 		font-size: 1.6rem;
 		outline: none;
 		border-radius: 3px;
-		border: 1.5px solid darken(#fff, 15%);
+		border: 2px solid darken(#fff, 15%);
 		transition: all 0.1s;
 
 		&:focus {
-			border: 1.5px solid $dark-grey;
+			border: 2px solid #359be4;
 			color: lighten(#000, 20%);
 		}
 	}

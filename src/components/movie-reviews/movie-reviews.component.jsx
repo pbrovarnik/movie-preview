@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import MovieRating from '../movie-rating/movie-rating.component';
-import MovieTitle from '../movie-title/movie-title.component';
 
 import imdbIcon from '../../assets/icons/imdb.png';
 import freshTomatoIcon from '../../assets/icons/fresh-tomato.png';
@@ -48,15 +47,17 @@ const MovieReviews = ({ selectedMovie }) => {
 	}
 
 	return (
-		<>
+		<div className='movie-reviews'>
 			{movieLoading ? (
 				<div className='movie-reviews__loading'>Loading...</div>
 			) : movieError ? (
 				<div className='movie-reviews__error'>Error occured.</div>
 			) : (
-				<div className='movie-reviews'>
+				<div className='movie-reviews__container'>
 					<div className='movie-reviews__details'>
-						<MovieTitle title={movie.Title} />
+						<div className='movie-reviews__title'>
+							<h1>{movie.Title}</h1>
+						</div>
 						<div className='movie-reviews__ratings-container'>
 							{movie &&
 								movie.Ratings &&
@@ -71,7 +72,7 @@ const MovieReviews = ({ selectedMovie }) => {
 					<p className='movie-reviews__plot'>{movie.Plot}</p>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 

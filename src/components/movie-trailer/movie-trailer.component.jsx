@@ -15,7 +15,7 @@ const MovieTrailer = () => {
 	}, [selectedMovie]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className='movie-reviews__video-player'>
+		<div className='movie-trailer'>
 			<ReactPlayer
 				url={`https://www.youtube.com/watch?v=${youTubeId}`}
 				width='100%'

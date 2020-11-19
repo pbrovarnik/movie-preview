@@ -1,15 +1,12 @@
 .movie-reviews {
-	width: 500px;
-	margin-left: 5rem;
-	margin-bottom: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-
-	&__video-player {
-		height: 48rem;
+	&__container {
+		width: 500px;
+		margin-left: 5rem;
 		margin-bottom: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
 	}
 
 	&__plot {
