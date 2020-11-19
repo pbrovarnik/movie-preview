@@ -1,0 +1,27 @@
+.footer {
+	background-color: $dark-grey;
+	color: $white-color;
+
+	&__text {
+		padding: 0.9rem;
+		margin: 0;
+		color: darken(white, 50%);
+		font-size: 1.4rem;
+
+		a {
+			color: darken(white, 50%);
+			font-size: 1.3rem;
+			transition: all 0.3s;
+			display: inline-block;
+			background-color: $dark-grey;
+
+			&:hover,
+			&:active {
+				color: #54aae7;
+				-moz-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+				-webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+				box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+			}
+		}
+	}
+}

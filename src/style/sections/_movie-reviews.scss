@@ -1,0 +1,66 @@
+.movie-reviews {
+	width: 500px;
+	margin-left: 5rem;
+	margin-bottom: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+
+	&__video-player {
+		height: 48rem;
+		margin-bottom: 1.5rem;
+	}
+
+	&__plot {
+		font-size: 1.4rem;
+		line-height: 1.4;
+		letter-spacing: 0.5px;
+		text-align: left;
+		margin: 0;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	&__details {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__ratings-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	&__title > h1 {
+		font-size: 2rem;
+		margin: 0;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	&__component {
+		width: 8rem;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		&:last-child {
+			margin-right: 0.5rem;
+		}
+
+		&--icon {
+			width: 2.3rem;
+			margin-right: 1rem;
+		}
+
+		&--rating {
+			font-size: 2rem;
+		}
+	}
+}

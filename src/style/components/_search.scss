@@ -1,0 +1,20 @@
+.input-search {
+	display: inline-block;
+	margin: 0.5rem;
+	grid-column: 3 / span 3;
+
+	&__field {
+		width: 35vw;
+		height: 3.2rem;
+		font-size: 1.6rem;
+		outline: none;
+		border-radius: 3px;
+		border: 1.5px solid darken(#fff, 15%);
+		transition: all 0.1s;
+
+		&:focus {
+			border: 1.5px solid $dark-grey;
+			color: lighten(#000, 20%);
+		}
+	}
+}
