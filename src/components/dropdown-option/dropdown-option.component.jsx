@@ -9,14 +9,12 @@ const DropdownOption = React.memo(({ movie }) => {
 		(actions) => actions.setSelectedMovie
 	);
 	const addSearch = useStoreActions((actions) => actions.addSearch);
-	const toggleDropdownOpen = useStoreActions(
-		(actions) => actions.toggleDropdownOpen
-	);
+	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 
 	const handleClick = () => {
 		addSearch('');
 		setSelectedMovie(movie);
-		toggleDropdownOpen();
+		toggleDropdown();
 	};
 
 	return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import useDebounce from '../use-debounce/use-debounce';
@@ -9,7 +9,7 @@ const SearchDropdown = ({ search }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
 	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const { results } = useStoreState((state) => state.movieDbSearchData);
-	const loading = useStoreState((state) => state.loading);
+	const isLoading = useStoreState((state) => state.isLoading.movieDbUrl);
 	const fetchError = useStoreState((state) => state.fetchError);
 
 	const debouncedSearch = useDebounce(search, 500);
@@ -17,7 +17,14 @@ const SearchDropdown = ({ search }) => {
 	const API_KEY = 'api_key=68475f6c6a3dd0d5fda299f9ce48a964';
 	const url = `https://api.themoviedb.org/3/search/movie?${API_KEY}&${query}`;
 
-	React.useEffect(() => {
+	const initialLoad = useRef(true);
+
+	useEffect(() => {
+		if (initialLoad.current) {
+			initialLoad.current = false;
+			return;
+		}
+
 		fetchData({ movieDbUrl: url });
 	}, [url]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -26,10 +33,10 @@ const SearchDropdown = ({ search }) => {
 			{isDropdownOpen && search && results && results.length ? (
 				<div className='dropdown'>
 					<div className='dropdown__content dropdown__results'>
-						{loading && search ? (
-							<div className='dropdown__loading'>Loading...</div>
+						{isLoading && search ? (
+							<div className='dropdown__loading'>Loading search data...</div>
 						) : fetchError ? (
-							<div className='dropdown__error'>Error occured.</div>
+							<div className='dropdown__error'>Error occured loading search data.</div>
 						) : (
 							search &&
 							results

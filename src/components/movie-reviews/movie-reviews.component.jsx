@@ -11,7 +11,7 @@ import metaCriticIcon from '../../assets/icons/meta-critic.png';
 const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 	const imdbSearchData = useStoreState((state) => state.imdbSearchData);
 	const imdbMovieData = useStoreState((state) => state.imdbMovieData);
-	const loading = useStoreState((state) => state.loading);
+	const isLoading = useStoreState((state) => state.isLoading);
 	const fetchError = useStoreState((state) => state.fetchError);
 	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const ratings = [];
@@ -63,10 +63,10 @@ const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 
 	return (
 		<div className='movie-reviews'>
-			{loading ? (
-				<div className='movie-reviews__loading'>Loading...</div>
+			{isLoading.imdbSearch || isLoading.imdbMovieData ? (
+				<div className='movie-reviews__loading'>Loading reviews...</div>
 			) : fetchError ? (
-				<div className='movie-reviews__error'>Error occured.</div>
+				<div className='movie-reviews__error'>Error occured loading reviews.</div>
 			) : (
 				<div className='movie-reviews__container'>
 					<div className='movie-reviews__details'>

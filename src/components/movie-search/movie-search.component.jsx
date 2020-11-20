@@ -6,9 +6,7 @@ import SearchDropdown from '../search-dropdown/search-dropdown.component';
 
 const MovieSearch = () => {
 	const addSearch = useStoreActions((actions) => actions.addSearch);
-	const toggleDropdownOpen = useStoreActions(
-		(actions) => actions.toggleDropdownOpen
-	);
+	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 	const search = useStoreState((state) => state.search);
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
 
@@ -25,7 +23,7 @@ const MovieSearch = () => {
 			!target.className.includes('dropdown') &&
 			isDropdownOpen
 		) {
-			toggleDropdownOpen();
+			toggleDropdown();
 		}
 	};
 
@@ -36,7 +34,7 @@ const MovieSearch = () => {
 				placeholder='Search movie'
 				inputName='movieSearch'
 				value={search}
-				handleFocus={() => !isDropdownOpen && toggleDropdownOpen()}
+				handleFocus={() => !isDropdownOpen && toggleDropdown()}
 			/>
 			<SearchDropdown search={search} />
 		</div>

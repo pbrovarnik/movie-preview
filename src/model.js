@@ -9,7 +9,12 @@ const model = {
 	imdbSearchData: {},
 	imdbMovieData: {},
 	youTubeVideoId: '',
-	loading: false,
+	isLoading: {
+		movieDbSearch: false,
+		imdbSearch: false,
+		imdbMovieData: false,
+		youTubeSearch: false,
+	},
 	fetchError: null,
 	noMatchError: '',
 	// Data fetching
@@ -25,7 +30,8 @@ const model = {
 			},
 			url
 		) => {
-			setLoading(true);
+			const urlKey = Object.keys(url)[0];
+			setLoading([urlKey, true]);
 			setFetchError(null);
 
 			try {
@@ -40,7 +46,7 @@ const model = {
 					throw data.Error;
 				}
 
-				switch (Object.keys(url)[0]) {
+				switch (urlKey) {
 					case 'movieDbUrl':
 						setMovieDbSearchData(data);
 						break;
@@ -56,12 +62,11 @@ const model = {
 					default:
 						break;
 				}
-
-				setLoading(false);
+				setLoading([urlKey, false]);
 			} catch (error) {
 				console.log(error);
 				setFetchError(error);
-				setLoading(false);
+				setLoading([urlKey, false]);
 			}
 		}
 	),
@@ -72,11 +77,8 @@ const model = {
 	addSearch: action((state, payload) => {
 		state.search = payload;
 	}),
-	toggleDropdownOpen: action((state) => {
+	toggleDropdown: action((state) => {
 		state.isDropdownOpen = !state.isDropdownOpen;
-	}),
-	setLoading: action((state, payload) => {
-		state.loading = payload;
 	}),
 	setFetchError: action((state, payload) => {
 		state.fetchError = payload;
@@ -108,6 +110,24 @@ const model = {
 			.pop();
 
 		state.youTubeVideoId = youTubeVideoId;
+	}),
+	setLoading: action((state, [urlKey, loading]) => {
+		switch (urlKey) {
+			case 'movieDbUrl':
+				state.isLoading.movieDbSearch = loading;
+				break;
+			case 'imdbSearchUrl':
+				state.isLoading.imdbSearch = loading;
+				break;
+			case 'imdbMovieUrl':
+				state.isLoading.imdbMovieData = loading;
+				break;
+			case 'youtubeUrl':
+				state.isLoading.youTubeSearch = loading;
+				break;
+			default:
+				break;
+		}
 	}),
 };
 

@@ -38,6 +38,9 @@
 
 		&--title {
 			font-size: 1.4rem;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
 			margin: 1rem;
 		}
 
