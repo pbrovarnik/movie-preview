@@ -1,4 +1,8 @@
 .movie-trailer {
 	height: 48rem;
 	margin-bottom: 1.5rem;
+
+	@media screen and (max-width: 400px) {
+		height: 38rem;
+	}
 }

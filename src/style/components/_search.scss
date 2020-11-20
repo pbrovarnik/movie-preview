@@ -1,21 +1,61 @@
 .input-search {
 	display: inline-block;
-	margin: 0.5rem;
 	grid-column: 3 / span 3;
+
+	&__container {
+		display: flex;
+		align-items: center;
+
+		& .fas {
+			display: none;
+			font-size: 2rem;
+			color: #fff;
+			margin-left: 1.5rem;
+			z-index: 1;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		position: fixed;
+		left: 0;
+		transition: all 0.3s;
+	}
 
 	&__field {
 		width: 35vw;
-		height: 3rem;
+		height: 3.5rem;
 		font-size: 1.6rem;
 		text-indent: 0.8rem;
 		outline: none;
 		border-radius: 3px;
 		border: 2px solid darken(#fff, 15%);
+		-webkit-appearance: none;
 		transition: all 0.1s;
+
+		@media screen and (max-width: 700px) {
+			height: 3rem;
+		}
+
+		@media screen and (max-width: 500px) {
+			position: fixed;
+			right: 15px;
+			transition: all 0.3s;
+		}
 
 		&:focus {
 			border: 2px solid #359be4;
 			color: lighten(#000, 20%);
+
+			@media screen and (max-width: 500px) {
+				text-indent: 4rem;
+				right: 1px;
+				width: 99.9%;
+				height: 4.6rem;
+			}
+		}
+
+		@media screen and (max-width: 700px) {
+			width: 45vw;
 		}
 	}
 }

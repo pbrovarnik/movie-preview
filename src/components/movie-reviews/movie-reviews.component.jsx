@@ -68,24 +68,33 @@ const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 			) : fetchError ? (
 				<div className='movie-reviews__error'>Error occured loading reviews.</div>
 			) : (
-				<div className='movie-reviews__container'>
-					<div className='movie-reviews__details'>
-						<div className='movie-reviews__title'>
-							<h1>{imdbMovieData.Title}</h1>
-						</div>
-						<div className='movie-reviews__ratings-container'>
-							{imdbMovieData &&
-								imdbMovieData.Ratings &&
-								ratings.map(
-									({ Icon, Source, Value }, i) =>
-										Value !== 'N/A' && (
-											<MovieRating key={i} name={Source} rating={Value} icon={Icon} />
-										)
-								)}
-						</div>
+				<>
+					<div className='movie-reviews__img-container'>
+						<img
+							className='movie-reviews__img'
+							src={imdbMovieData.Poster}
+							alt='movie poster'
+						/>
 					</div>
-					<p className='movie-reviews__plot'>{imdbMovieData.Plot}</p>
-				</div>
+					<div className='movie-reviews__container'>
+						<div className='movie-reviews__details'>
+							<div className='movie-reviews__title'>
+								<h1>{imdbMovieData.Title}</h1>
+							</div>
+							<div className='movie-reviews__ratings-container'>
+								{imdbMovieData &&
+									imdbMovieData.Ratings &&
+									ratings.map(
+										({ Icon, Source, Value }, i) =>
+											Value !== 'N/A' && (
+												<MovieRating key={i} name={Source} rating={Value} icon={Icon} />
+											)
+									)}
+							</div>
+						</div>
+						<p className='movie-reviews__plot'>{imdbMovieData.Plot}</p>
+					</div>
+				</>
 			)}
 		</div>
 	);

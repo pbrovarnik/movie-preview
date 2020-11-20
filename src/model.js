@@ -27,12 +27,14 @@ const model = {
 				setYouTubeData,
 				setLoading,
 				setFetchError,
+				setNoMatchError,
 			},
 			url
 		) => {
 			const urlKey = Object.keys(url)[0];
 			setLoading([urlKey, true]);
 			setFetchError(null);
+			setNoMatchError();
 
 			try {
 				const response = await fetch(...Object.values(url));
@@ -128,6 +130,9 @@ const model = {
 			default:
 				break;
 		}
+	}),
+	setNoMatchError: action((state) => {
+		state.noMatchError = '';
 	}),
 };
 

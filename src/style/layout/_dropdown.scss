@@ -1,8 +1,20 @@
 .dropdown {
 	position: absolute;
-	left: 32.5%;
 	width: 35vw;
-	margin: 0 auto;
+
+	@media screen and (max-width: 700px) {
+		width: 45vw;
+	}
+
+	@media screen and (max-width: 500px) {
+		left: 4.5px;
+		width: 98vw;
+		top: 20px;
+	}
+
+	@media screen and (max-width: 400px) {
+		left: 3.5px;
+	}
 
 	&__content {
 		position: relative;
@@ -28,7 +40,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 6rem;
+		height: 5.9rem;
 		cursor: pointer;
 		z-index: 1;
 
@@ -54,5 +66,10 @@
 	&__results {
 		max-height: 50vh;
 		overflow-y: scroll;
+
+		@media screen and (max-width: 500px) {
+			max-height: unset;
+			overflow-y: hidden;
+		}
 	}
 }

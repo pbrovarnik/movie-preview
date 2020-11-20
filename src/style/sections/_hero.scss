@@ -6,6 +6,12 @@
 		grid-template-columns: repeat(7, 1fr);
 		justify-items: center;
 		align-items: center;
+
+		@include respond(phone) {
+			display: flex;
+			justify-content: space-between;
+			margin-right: 1.5rem;
+		}
 	}
 
 	&__container {
@@ -19,8 +25,16 @@
 
 	&__title {
 		color: #fff;
-		font-size: 2rem;
+		font-size: 1.87rem;
 		margin: 1.5rem;
+
+		@media screen and (max-width: 700px) {
+			font-size: 1.48rem;
+		}
+
+		@include respond(phone) {
+			font-size: 1.5rem;
+		}
 	}
 
 	&__icon {
