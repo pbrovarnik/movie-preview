@@ -8,19 +8,34 @@ import freshTomatoIcon from '../../assets/icons/fresh-tomato.png';
 import rottenTomatoIcon from '../../assets/icons/rotten-tomato.png';
 import metaCriticIcon from '../../assets/icons/meta-critic.png';
 
-const MovieReviews = ({ selectedMovie }) => {
-	const movie = useStoreState((state) => state.movie);
-	const movieLoading = useStoreState((state) => state.movieLoading);
-	const movieError = useStoreState((state) => state.movieError);
-	const getMovie = useStoreActions((actions) => actions.getMovie);
+const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
+	const imdbSearchData = useStoreState((state) => state.imdbSearchData);
+	const imdbMovieData = useStoreState((state) => state.imdbMovieData);
+	const loading = useStoreState((state) => state.loading);
+	const fetchError = useStoreState((state) => state.fetchError);
+	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const ratings = [];
 
-	useEffect(() => {
-		getMovie(selectedMovie);
-	}, [selectedMovie]); // eslint-disable-line react-hooks/exhaustive-deps
+	const baseUrl = 'https://www.omdbapi.com';
+	const API_KEY = 'apikey=4a682a75';
 
-	if (movie && movie.Ratings) {
-		const filteredRating = movie.Ratings.filter(
+	useEffect(() => {
+		if (title) {
+			const query = `s=${title}`;
+			const url = `${baseUrl}/?${API_KEY}&${query}`;
+			fetchData({ imdbSearchUrl: url });
+		}
+	}, [title]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (Object.keys(imdbSearchData || {}).length) {
+			const url = `${baseUrl}/?${API_KEY}&i=${imdbSearchData.imdbID}`;
+			fetchData({ imdbMovieUrl: url });
+		}
+	}, [imdbSearchData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	if (imdbMovieData && imdbMovieData.Ratings) {
+		const filteredRating = imdbMovieData.Ratings.filter(
 			(rating) => rating.Source === 'Rotten Tomatoes'
 		)
 			.map((rating) =>
@@ -32,35 +47,35 @@ const MovieReviews = ({ selectedMovie }) => {
 
 		filteredRating && ratings.push(filteredRating);
 
-		movie.imdbRating &&
+		imdbMovieData.imdbRating &&
 			ratings.push({
 				Source: 'IMDB',
-				Value: movie.imdbRating,
+				Value: imdbMovieData.imdbRating,
 				Icon: imdbIcon,
 			});
-		movie.Metascore &&
+		imdbMovieData.Metascore &&
 			ratings.push({
 				Source: 'Metascore',
-				Value: movie.Metascore,
+				Value: imdbMovieData.Metascore,
 				Icon: metaCriticIcon,
 			});
 	}
 
 	return (
 		<div className='movie-reviews'>
-			{movieLoading ? (
+			{loading ? (
 				<div className='movie-reviews__loading'>Loading...</div>
-			) : movieError ? (
+			) : fetchError ? (
 				<div className='movie-reviews__error'>Error occured.</div>
 			) : (
 				<div className='movie-reviews__container'>
 					<div className='movie-reviews__details'>
 						<div className='movie-reviews__title'>
-							<h1>{movie.Title}</h1>
+							<h1>{imdbMovieData.Title}</h1>
 						</div>
 						<div className='movie-reviews__ratings-container'>
-							{movie &&
-								movie.Ratings &&
+							{imdbMovieData &&
+								imdbMovieData.Ratings &&
 								ratings.map(
 									({ Icon, Source, Value }, i) =>
 										Value !== 'N/A' && (
@@ -69,7 +84,7 @@ const MovieReviews = ({ selectedMovie }) => {
 								)}
 						</div>
 					</div>
-					<p className='movie-reviews__plot'>{movie.Plot}</p>
+					<p className='movie-reviews__plot'>{imdbMovieData.Plot}</p>
 				</div>
 			)}
 		</div>
