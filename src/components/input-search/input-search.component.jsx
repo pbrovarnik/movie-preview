@@ -57,6 +57,7 @@ const InputSearch = ({
 		if (e.key === 'Enter' && results && results.length) {
 			addSearch('');
 			setSelectedMovie(results && results[0]);
+			handleFocusBlur();
 			inputElm.current.blur();
 		}
 	};

@@ -64,6 +64,9 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
+		&:first-child {
+			margin-right: 0.5rem;
+		}
 		&:last-child {
 			margin-right: 0.5rem;
 		}
