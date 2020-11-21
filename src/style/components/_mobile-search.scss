@@ -1,0 +1,71 @@
+.input-group {
+	display: flex;
+	height: 55.5px;
+	width: 100%;
+	overflow: hidden;
+	padding: 1px 0;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+	&.centered {
+		margin: 0 auto;
+	}
+
+	&-addon {
+		border-radius: 1px;
+	}
+
+	& .input-group-addon {
+		justify-content: center;
+		width: 36px;
+		background: transparent;
+		border: none;
+		display: flex;
+		text-align: center;
+		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+		& i {
+			height: 24px;
+			width: 24px;
+			align-self: center;
+			color: #fff;
+		}
+	}
+
+	& input {
+		border: none;
+		box-shadow: none !important;
+		font-size: 16px;
+		padding: 0;
+		height: 100%;
+	}
+
+	& .form-control:last-child {
+		border-radius: 1px;
+	}
+}
+
+.input-group-addon i:hover {
+	color: #359be4;
+
+	@media screen and (max-width: 400px) {
+		color: #fff;
+	}
+}
+
+.bg-white {
+	background: white !important;
+}
+
+.icon-color {
+	color: #359be4 !important;
+}
+
+.inactive {
+	width: 36px;
+	box-shadow: none;
+
+	& .input-group-addon:not(:first-child) {
+		opacity: 0;
+	}
+}

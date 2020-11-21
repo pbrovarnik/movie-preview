@@ -28,16 +28,18 @@ const MovieSearch = () => {
 	};
 
 	return (
-		<div className='input-search'>
-			<InputSearch
-				handleChange={({ target }) => addSearch(target.value)}
-				placeholder='Search movie'
-				inputName='movieSearch'
-				value={search}
-				handleFocus={() => !isDropdownOpen && toggleDropdown()}
-			/>
-			<SearchDropdown search={search} />
-		</div>
+		<>
+			<div className='input-search'>
+				<InputSearch
+					handleChange={({ target }) => addSearch(target.value)}
+					placeholder='Search movie'
+					inputName='movieSearch'
+					value={search}
+					handleFocus={() => !isDropdownOpen && toggleDropdown()}
+				/>
+				<SearchDropdown search={search} />
+			</div>
+		</>
 	);
 };
 
