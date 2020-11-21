@@ -12,7 +12,6 @@ const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 	const imdbSearchData = useStoreState((state) => state.imdbSearchData);
 	const imdbMovieData = useStoreState((state) => state.imdbMovieData);
 	const isLoading = useStoreState((state) => state.isLoading);
-	const fetchError = useStoreState((state) => state.fetchError);
 	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const ratings = [];
 
@@ -65,8 +64,6 @@ const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 		<div className='movie-reviews'>
 			{isLoading.imdbSearch || isLoading.imdbMovieData ? (
 				<div className='movie-reviews__loading'>Loading reviews...</div>
-			) : fetchError ? (
-				<div className='movie-reviews__error'>Error occured loading reviews.</div>
 			) : (
 				<>
 					<div className='movie-reviews__img-container'>

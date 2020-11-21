@@ -9,7 +9,6 @@ const SearchDropdown = ({ search }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
 	const { results } = useStoreState((state) => state.movieDbSearchData);
 	const isLoading = useStoreState((state) => state.isLoading.movieDbUrl);
-	const fetchError = useStoreState((state) => state.fetchError);
 	const isMobileSearchInactive = useStoreState(
 		(state) => state.isMobileSearchInactive
 	);
@@ -46,8 +45,6 @@ const SearchDropdown = ({ search }) => {
 							</div>
 						)}
 						{isLoading && search ? (
-							<div className='dropdown__loading'>Loading search data...</div>
-						) : fetchError ? (
 							<div className='dropdown__error'>Error occured loading search data.</div>
 						) : (
 							search &&
