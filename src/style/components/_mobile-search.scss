@@ -1,11 +1,11 @@
 .input-group {
 	display: flex;
-	height: 55.5px;
+	height: 5.55rem;
 	width: 100%;
 	overflow: hidden;
 	padding: 1px 0;
 	cursor: pointer;
-	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	// transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
 	&.centered {
 		margin: 0 auto;
@@ -17,16 +17,16 @@
 
 	& .input-group-addon {
 		justify-content: center;
-		width: 36px;
+		width: 3.6rem;
 		background: transparent;
 		border: none;
 		display: flex;
 		text-align: center;
-		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+		// transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
 		& i {
-			height: 24px;
-			width: 24px;
+			height: 2.4rem;
+			width: 2.4rem;
 			align-self: center;
 			color: #fff;
 		}
@@ -35,7 +35,7 @@
 	& input {
 		border: none;
 		box-shadow: none !important;
-		font-size: 16px;
+		font-size: 1.6rem;
 		padding: 0;
 		height: 100%;
 	}
@@ -62,7 +62,7 @@
 }
 
 .inactive {
-	width: 36px;
+	width: 3.6rem;
 	box-shadow: none;
 
 	& .input-group-addon:not(:first-child) {

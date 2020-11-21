@@ -36,6 +36,7 @@ const MovieSearch = () => {
 					inputName='movieSearch'
 					value={search}
 					handleFocus={() => !isDropdownOpen && toggleDropdown()}
+					handleInputClear={() => addSearch('')}
 				/>
 				<SearchDropdown search={search} />
 			</div>

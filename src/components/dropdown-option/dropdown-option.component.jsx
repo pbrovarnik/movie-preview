@@ -5,6 +5,9 @@ import NotFoundImage from '../../assets/images/image-not-found.png';
 
 const DropdownOption = React.memo(({ movie }) => {
 	const { title, poster_path } = movie;
+	const setOptionClicked = useStoreActions(
+		(actions) => actions.setOptionClicked
+	);
 	const setSelectedMovie = useStoreActions(
 		(actions) => actions.setSelectedMovie
 	);
@@ -15,6 +18,7 @@ const DropdownOption = React.memo(({ movie }) => {
 		addSearch('');
 		setSelectedMovie(movie);
 		toggleDropdown();
+		setOptionClicked();
 	};
 
 	return (

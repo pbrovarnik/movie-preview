@@ -5,8 +5,8 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const MovieTrailer = React.memo(() => {
 	const fetchData = useStoreActions((actions) => actions.fetchData);
-	// const isLoading = useStoreState((state) => state.isLoading.youTubeSearch);
-	// const fetchError = useStoreState((state) => state.fetchError);
+	const isLoading = useStoreState((state) => state.isLoading.youTubeSearch);
+	const fetchError = useStoreState((state) => state.fetchError);
 	const youTubeVideoId = useStoreState((state) => state.youTubeVideoId);
 	const { title, release_date } = useStoreState((state) => state.selectedMovie);
 
@@ -17,7 +17,7 @@ const MovieTrailer = React.memo(() => {
 
 	useEffect(() => {
 		fetchData({ youtubeUrl: url });
-	}, [query]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
@@ -34,7 +34,7 @@ const MovieTrailer = React.memo(() => {
 					width='100%'
 					height='100%'
 					controls={true}
-					playing={true}
+					// playing={true}
 				/>
 			</div>
 			{/* )} */}

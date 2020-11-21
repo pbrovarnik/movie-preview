@@ -1,6 +1,6 @@
 {
-	"short_name": "Trailers",
-	"name": "Movie trailers",
+	"short_name": "Movie Preview",
+	"name": "Movie Preview",
 	"icons": [
 		{
 			"src": "favicon.ico",

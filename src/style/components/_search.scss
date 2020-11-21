@@ -13,13 +13,17 @@
 		-webkit-appearance: none;
 		transition: all 0.1s;
 
-		@media screen and (max-width: 700px) {
-			height: 3rem;
-		}
-
 		&:focus {
 			border: 2px solid #359be4;
 			color: lighten(#000, 20%);
+		}
+
+		&::-webkit-search-cancel-button {
+			-webkit-appearance: searchfield-cancel-button !important;
+		}
+
+		@media screen and (max-width: 700px) {
+			height: 3rem;
 		}
 
 		@media screen and (max-width: 700px) {

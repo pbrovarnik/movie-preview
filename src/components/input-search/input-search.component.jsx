@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const InputSearch = ({
@@ -7,27 +7,47 @@ const InputSearch = ({
 	inputName,
 	value,
 	handleFocus,
+	handleInputClear,
 }) => {
 	const inputElm = useRef(null);
-	const [isMobileSearchInactive, setMobileSearchInactive] = useState(true);
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 	const { results } = useStoreState((state) => state.movieDbSearchData);
+	const isOptionClicked = useStoreState((state) => state.isOptionClicked);
+	const isMobileSearchInactive = useStoreState(
+		(state) => state.isMobileSearchInactive
+	);
+	const windowWidth = useStoreState((state) => state.windowWidth);
 	const setSelectedMovie = useStoreActions(
 		(actions) => actions.setSelectedMovie
 	);
+	const setMobileSearchInactive = useStoreActions(
+		(actions) => actions.setMobileSearchInactive
+	);
 	const addSearch = useStoreActions((actions) => actions.addSearch);
+	const setOptionClicked = useStoreActions(
+		(actions) => actions.setOptionClicked
+	);
+	const setWindowWidth = useStoreActions((actions) => actions.setWindowWidth);
 
 	useEffect(() => {
-		inputElm.current.focus();
-	}, []);
+		if (windowWidth > 600) {
+			inputElm.current.focus();
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [windowWidth]);
+	}, [windowWidth]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (isOptionClicked && windowWidth <= 600) {
+			handleFocusBlur();
+			setOptionClicked();
+		}
+	}, [isOptionClicked]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
@@ -41,14 +61,14 @@ const InputSearch = ({
 		}
 	};
 
-	const handleMobileFocus = () => {
-		setMobileSearchInactive(false);
-		inputElm.current.focus();
-	};
-
-	const handleMobileBlur = () => {
-		setMobileSearchInactive(true);
-		inputElm.current.blur();
+	const handleFocusBlur = () => {
+		if (isMobileSearchInactive) {
+			setMobileSearchInactive(false);
+			inputElm.current.focus();
+		} else if (!isMobileSearchInactive) {
+			setMobileSearchInactive(true);
+			inputElm.current.blur();
+		}
 	};
 
 	return (
@@ -81,7 +101,8 @@ const InputSearch = ({
 							className={`material-icons ${
 								!isMobileSearchInactive ? 'icon-color' : ''
 							}`}
-							onClick={isMobileSearchInactive ? handleMobileFocus : handleMobileBlur}
+							onClick={handleFocusBlur}
+							onTouchStart={handleFocusBlur}
 						>
 							{isMobileSearchInactive ? 'search' : 'arrow_back'}
 						</i>
@@ -95,10 +116,23 @@ const InputSearch = ({
 						value={value}
 						autoComplete='off'
 						onFocus={handleFocus}
-						onBlur={handleMobileBlur}
 						ref={inputElm}
 						onKeyDown={handleEnterPress}
 					/>
+					<span
+						className={`input-group-addon ${
+							!isMobileSearchInactive ? 'bg-white' : ''
+						}`}
+					>
+						<i
+							className={`material-icons ${
+								!isMobileSearchInactive ? 'icon-color' : ''
+							}`}
+							onClick={handleInputClear}
+						>
+							clear
+						</i>
+					</span>
 				</div>
 			)}
 		</>

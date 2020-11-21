@@ -2,6 +2,9 @@ import { action, thunk } from 'easy-peasy';
 
 const model = {
 	// Store
+	windowWidth: window.innerWidth,
+	isMobileSearchInactive: true,
+	isOptionClicked: false,
 	isDropdownOpen: false,
 	search: '',
 	selectedMovie: {},
@@ -81,6 +84,15 @@ const model = {
 	}),
 	toggleDropdown: action((state) => {
 		state.isDropdownOpen = !state.isDropdownOpen;
+	}),
+	setOptionClicked: action((state) => {
+		state.isOptionClicked = !state.isOptionClicked;
+	}),
+	setMobileSearchInactive: action((state, payload) => {
+		state.isMobileSearchInactive = payload;
+	}),
+	setWindowWidth: action((state, payload) => {
+		state.windowWidth = payload;
 	}),
 	setFetchError: action((state, payload) => {
 		state.fetchError = payload;

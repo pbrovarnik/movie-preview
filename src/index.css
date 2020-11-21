@@ -6,12 +6,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-@media screen and (max-width: 400px) {
-	body {
-		overflow: hidden;
-	}
-}
-
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
