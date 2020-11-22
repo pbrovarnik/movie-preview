@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStoreActions } from 'easy-peasy';
 
 import NotFoundImage from '../../assets/images/image-not-found.png';
 
 const DropdownOption = React.memo(({ movie }) => {
+	const history = useHistory();
 	const { title, poster_path } = movie;
 	const setOptionClicked = useStoreActions(
 		(actions) => actions.setOptionClicked
@@ -19,6 +21,7 @@ const DropdownOption = React.memo(({ movie }) => {
 		setSelectedMovie(movie);
 		toggleDropdown();
 		setOptionClicked();
+		history.push('/preview');
 	};
 
 	return (

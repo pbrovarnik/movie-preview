@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
 
-import Hero from '../components/hero/hero.component';
 import MovieTrailer from '../components/movie-trailer/movie-trailer.component';
 import MovieReviews from '../components/movie-reviews/movie-reviews.component';
 // import Footer from '../components/footer/footer.component';
@@ -13,7 +12,6 @@ const MovieDetailsPage = () => {
 
 	return (
 		<div className='movie-details'>
-			<Hero />
 			{Object.keys(selectedMovie).length && !noMatchError ? (
 				<>
 					<MovieTrailer title={title} />
