@@ -1,18 +1,26 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
 import MovieSearch from '../movie-search/movie-search.component';
 
 const Hero = () => {
 	const history = useHistory();
+	const isMobileSearchInactive = useStoreState(
+		(state) => state.isMobileSearchInactive
+	);
 
-	const handleTitleClick = () =>
+	const handleTitleClick = () => {
 		history.location.pathname !== '/' && history.push('/');
+	};
 
 	return (
 		<div className='hero'>
 			<div className='hero__body'>
-				<div className='hero__container' onClick={handleTitleClick}>
+				<div
+					className={`hero__container ${isMobileSearchInactive ? 'z-index-1' : ''}`}
+					onClick={handleTitleClick}
+				>
 					<span className='hero__icon'>
 						<i className='fas fa-film'></i>
 					</span>
