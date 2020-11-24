@@ -28,6 +28,7 @@ const InputSearch = ({
 		(actions) => actions.setOptionClicked
 	);
 	const setWindowWidth = useStoreActions((actions) => actions.setWindowWidth);
+	const setLocalStorage = useStoreActions((actions) => actions.setLocalStorage);
 
 	useEffect(() => {
 		if (windowWidth > 600) {
@@ -57,6 +58,7 @@ const InputSearch = ({
 		if (e.key === 'Enter' && results && results.length) {
 			addSearch('');
 			setSelectedMovie(results && results[0]);
+			setLocalStorage(results && results[0]);
 			handleFocusBlur();
 			inputElm.current.blur();
 		}

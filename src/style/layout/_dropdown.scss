@@ -65,13 +65,13 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
-			margin: 1rem;
+			margin: 1rem 1rem 1rem 1.5rem;
 		}
 
 		&--img {
 			height: 5rem;
 			width: 3.333rem;
-			margin: 1rem;
+			margin: 1rem 1.5rem 1rem 1rem;
 		}
 	}
 
@@ -82,5 +82,18 @@
 		@media screen and (max-width: 600px) {
 			max-height: unset;
 		}
+	}
+
+	&__item > .material-icons {
+		transform: rotate(45deg);
+		margin-right: 1.5rem;
+		color: #609;
+	}
+
+	&__item-with-icon {
+		display: flex;
+		align-items: center;
+		margin-left: 1.5rem;
+		color: #609;
 	}
 }

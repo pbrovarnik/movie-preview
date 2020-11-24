@@ -8,14 +8,13 @@ import MovieReviews from '../components/movie-reviews/movie-reviews.component';
 const MovieDetailsPage = () => {
 	const selectedMovie = useStoreState((state) => state.selectedMovie);
 	const noMatchError = useStoreState((state) => state.noMatchError);
-	const { title, release_date } = selectedMovie;
 
 	return (
 		<div className='movie-details'>
 			{Object.keys(selectedMovie).length && !noMatchError ? (
 				<>
-					<MovieTrailer title={title} />
-					<MovieReviews selectedMovie={{ title, release_date }} />
+					<MovieTrailer selectedMovie={selectedMovie} />
+					<MovieReviews selectedMovie={selectedMovie} />
 				</>
 			) : (
 				<div>{noMatchError}</div>

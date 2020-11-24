@@ -4,6 +4,7 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import useDebounce from '../use-debounce/use-debounce';
 
 import DropdownOption from '../dropdown-option/dropdown-option.component';
+import DropdownOptionSearchHistory from '../dropdown-option/dropdown-option-search-history.component';
 
 const SearchDropdown = ({ search }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
@@ -13,7 +14,9 @@ const SearchDropdown = ({ search }) => {
 		(state) => state.isMobileSearchInactive
 	);
 	const windowWidth = useStoreState((state) => state.windowWidth);
+	const localStorage = useStoreState((state) => state.localStorage);
 	const fetchData = useStoreActions((actions) => actions.fetchData);
+	const getLocalStorage = useStoreActions((actions) => actions.getLocalStorage);
 
 	const debouncedSearch = useDebounce(search, 500);
 	const query = `query=${debouncedSearch || '%00'}`;
@@ -31,8 +34,13 @@ const SearchDropdown = ({ search }) => {
 		fetchData({ movieDbUrl: url });
 	}, [url]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	useEffect(() => {
+		getLocalStorage();
+	}, [isDropdownOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
 	const hasResults = results && results.length;
 	const hideDropdown = !hasResults && search && windowWidth > 600;
+	const searchHistory = [...localStorage].reverse();
 
 	return (
 		<>
@@ -40,12 +48,20 @@ const SearchDropdown = ({ search }) => {
 				<div className='dropdown' hidden={hideDropdown}>
 					<div className='dropdown__content dropdown__results'>
 						{!hasResults && (
-							<div className='dropdown__content--empty-search'>
-								Waiting for movie search...
-							</div>
+							<>
+								{searchHistory.length ? (
+									searchHistory.map((movie, idx) => (
+										<DropdownOptionSearchHistory key={idx} movie={movie} />
+									))
+								) : (
+									<div className='dropdown__content--empty-search'>
+										Waiting for movie search...
+									</div>
+								)}
+							</>
 						)}
 						{isLoading && search ? (
-							<div className='dropdown__error'>Error occured loading search data.</div>
+							<div className='dropdown__loading'>Loading...</div>
 						) : (
 							search &&
 							results &&

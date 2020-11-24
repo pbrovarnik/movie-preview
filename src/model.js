@@ -2,6 +2,7 @@ import { action, thunk } from 'easy-peasy';
 
 const model = {
 	// Store
+	localStorage: [],
 	windowWidth: window.innerWidth,
 	isMobileSearchInactive: true,
 	isOptionClicked: false,
@@ -141,6 +142,25 @@ const model = {
 				break;
 			default:
 				break;
+		}
+	}),
+	getLocalStorage: action((state) => {
+		if (localStorage.getItem('searchedMovies')) {
+			state.localStorage = [...JSON.parse(localStorage.getItem('searchedMovies'))];
+		} else {
+			localStorage.setItem('searchedMovies', JSON.stringify([]));
+		}
+	}),
+	setLocalStorage: action((state, payload) => {
+		if (state.localStorage.some((movie) => movie.title === payload.title)) {
+			return;
+		}
+		const localStorageItems = [...state.localStorage, payload];
+		if (localStorageItems.length > 10) {
+			localStorageItems.shift();
+		}
+		if (localStorage.getItem('searchedMovies')) {
+			localStorage.setItem('searchedMovies', JSON.stringify(localStorageItems));
 		}
 	}),
 	setNoMatchError: action((state) => {
