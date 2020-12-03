@@ -4,7 +4,6 @@ import { useStoreState } from 'easy-peasy';
 
 import MovieTrailer from '../components/movie-trailer/movie-trailer.component';
 import MovieReviews from '../components/movie-reviews/movie-reviews.component';
-// import Footer from '../components/footer/footer.component';
 
 const MovieDetailsPage = () => {
 	const selectedMovie = useStoreState((state) => state.selectedMovie);
@@ -24,7 +23,6 @@ const MovieDetailsPage = () => {
 					<MovieReviews selectedMovie={selectedMovie} />
 				</>
 			)}
-			{/* <Footer /> */}
 		</div>
 	);
 };
