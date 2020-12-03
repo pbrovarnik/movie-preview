@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const InputSearch = ({
@@ -10,8 +11,9 @@ const InputSearch = ({
 	handleInputClear,
 }) => {
 	const inputElm = useRef(null);
+	const history = useHistory();
 
-	const { results } = useStoreState((state) => state.movieDbSearchData);
+	const { results } = useStoreState((state) => state.tmdbSearchData);
 	const isOptionClicked = useStoreState((state) => state.isOptionClicked);
 	const isMobileSearchInactive = useStoreState(
 		(state) => state.isMobileSearchInactive
@@ -29,12 +31,7 @@ const InputSearch = ({
 	);
 	const setWindowWidth = useStoreActions((actions) => actions.setWindowWidth);
 	const setLocalStorage = useStoreActions((actions) => actions.setLocalStorage);
-
-	useEffect(() => {
-		if (windowWidth > 600) {
-			inputElm.current.focus();
-		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -55,12 +52,14 @@ const InputSearch = ({
 	};
 
 	const handleEnterPress = (e) => {
-		if (e.key === 'Enter' && results && results.length) {
+		if (e.key === 'Enter' && results?.length) {
 			addSearch('');
-			setSelectedMovie(results && results[0]);
-			setLocalStorage(results && results[0]);
-			handleFocusBlur();
+			setSelectedMovie(results?.[0]);
+			toggleDropdown();
+			setOptionClicked();
+			setLocalStorage(results?.[0]);
 			inputElm.current.blur();
+			history.location.pathname !== '/preview' && history.push('/preview');
 		}
 	};
 

@@ -9,15 +9,17 @@ const model = {
 	isDropdownOpen: false,
 	search: '',
 	selectedMovie: {},
-	movieDbSearchData: {},
+	tmdbDiscoverData: {},
+	tmdbSearchData: {},
 	imdbSearchData: {},
 	imdbMovieData: {},
 	youTubeVideoId: '',
 	isLoading: {
-		movieDbSearch: false,
-		imdbSearch: false,
+		tmdbDiscoverData: false,
+		tmdbSearchData: false,
+		imdbSearchData: false,
 		imdbMovieData: false,
-		youTubeSearch: false,
+		youTubeSearchData: false,
 	},
 	fetchError: null,
 	noMatchError: '',
@@ -25,7 +27,8 @@ const model = {
 	fetchData: thunk(
 		async (
 			{
-				setMovieDbSearchData,
+				setTmdbDiscoverData,
+				setTmdbSearchData,
 				setImdbSearchData,
 				setImdbMovieData,
 				setYouTubeData,
@@ -53,8 +56,11 @@ const model = {
 				}
 
 				switch (urlKey) {
-					case 'movieDbUrl':
-						setMovieDbSearchData(data);
+					case 'tmdbDiscoverUrl':
+						setTmdbDiscoverData(data);
+						break;
+					case 'tmdbSearchUrl':
+						setTmdbSearchData(data);
 						break;
 					case 'imdbSearchUrl':
 						setImdbSearchData(data);
@@ -98,8 +104,11 @@ const model = {
 	setFetchError: action((state, payload) => {
 		state.fetchError = payload;
 	}),
-	setMovieDbSearchData: action((state, payload) => {
-		state.movieDbSearchData = { ...payload };
+	setTmdbDiscoverData: action((state, payload) => {
+		state.tmdbDiscoverData = { ...payload };
+	}),
+	setTmdbSearchData: action((state, payload) => {
+		state.tmdbSearchData = { ...payload };
 	}),
 	setImdbSearchData: action((state, payload) => {
 		const imdbSearchData = payload.Search.filter(
@@ -119,6 +128,7 @@ const model = {
 		state.imdbMovieData = { ...payload };
 	}),
 	setYouTubeData: action((state, payload) => {
+		// payload.items[0].snippet.thumbnails
 		const youTubeVideoId = payload.items
 			.filter((item, idx) => idx < 1)
 			.map(({ id }) => id.videoId)
@@ -128,17 +138,20 @@ const model = {
 	}),
 	setLoading: action((state, [urlKey, loading]) => {
 		switch (urlKey) {
-			case 'movieDbUrl':
-				state.isLoading.movieDbSearch = loading;
+			case 'tmdbDiscoverUrl':
+				state.isLoading.tmdbDiscoverData = loading;
+				break;
+			case 'tmdbSearchUrl':
+				state.isLoading.tmdbSearchData = loading;
 				break;
 			case 'imdbSearchUrl':
-				state.isLoading.imdbSearch = loading;
+				state.isLoading.imdbSearchData = loading;
 				break;
 			case 'imdbMovieUrl':
 				state.isLoading.imdbMovieData = loading;
 				break;
 			case 'youtubeUrl':
-				state.isLoading.youTubeSearch = loading;
+				state.isLoading.youTubeSearchData = loading;
 				break;
 			default:
 				break;

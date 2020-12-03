@@ -17,12 +17,12 @@
 		align-items: flex-start;
 	}
 
-	&__img-container {
+	&__poster-container {
 		margin-top: 0.8rem;
 		margin-left: 5rem;
 	}
 
-	&__img {
+	&__poster {
 		width: 6.5rem;
 	}
 
@@ -52,11 +52,13 @@
 		margin-bottom: 0.5rem;
 	}
 
-	&__title > h1 {
+	&__title > div {
 		font-size: 2rem;
-		margin: 0;
+		font-weight: 700;
 		margin-top: 0.5rem;
 		margin-bottom: 0.5rem;
+		margin-right: 1.5rem;
+		text-align: left;
 	}
 
 	&__component {
@@ -64,6 +66,7 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
+
 		&:first-child {
 			margin-right: 0.5rem;
 		}

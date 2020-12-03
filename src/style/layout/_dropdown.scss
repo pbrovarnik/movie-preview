@@ -29,16 +29,10 @@
 		@media screen and (max-width: 600px) {
 			height: 59rem;
 		}
-
-		&--empty-search {
-			display: none;
-
-			@media screen and (max-width: 600px) {
-				display: unset;
-			}
-		}
 	}
 
+	&__content--empty-search,
+	&__no-results,
 	&__loading,
 	&__error {
 		display: flex;
@@ -61,6 +55,7 @@
 		}
 
 		&--title {
+			text-align: left;
 			font-size: 1.4rem;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -91,6 +86,7 @@
 	}
 
 	&__item-with-icon {
+		width: 80%;
 		display: flex;
 		align-items: center;
 		margin-left: 1.5rem;

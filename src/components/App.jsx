@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Hero from './hero/hero.component';
 import MovieDetailsPage from '../pages/movie-details.component';
-import MoviePreviewSuggestions from '../pages/movie-preview-suggestions.component';
+import MovieSuggestionsListPage from '../pages/movie-suggestions-list.component';
 
 function App() {
 	return (
@@ -11,7 +11,7 @@ function App() {
 			<BrowserRouter>
 				<Hero />
 				<Switch>
-					<Route exact path='/' component={MoviePreviewSuggestions} />
+					<Route exact path='/' component={MovieSuggestionsListPage} />
 					<Route exact path='/preview' component={MovieDetailsPage} />
 					<Redirect to='/' />
 				</Switch>

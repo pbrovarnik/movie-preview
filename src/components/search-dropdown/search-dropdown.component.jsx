@@ -8,12 +8,11 @@ import DropdownOptionSearchHistory from '../dropdown-option/dropdown-option-sear
 
 const SearchDropdown = ({ search }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
-	const { results } = useStoreState((state) => state.movieDbSearchData);
-	const isLoading = useStoreState((state) => state.isLoading.movieDbUrl);
+	const { results } = useStoreState((state) => state.tmdbSearchData);
+	const isLoading = useStoreState((state) => state.isLoading.tmdbSearchData);
 	const isMobileSearchInactive = useStoreState(
 		(state) => state.isMobileSearchInactive
 	);
-	const windowWidth = useStoreState((state) => state.windowWidth);
 	const localStorage = useStoreState((state) => state.localStorage);
 	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const getLocalStorage = useStoreActions((actions) => actions.getLocalStorage);
@@ -31,44 +30,47 @@ const SearchDropdown = ({ search }) => {
 			return;
 		}
 
-		fetchData({ movieDbUrl: url });
+		fetchData({ tmdbSearchUrl: url });
 	}, [url]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		getLocalStorage();
 	}, [isDropdownOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const hasResults = results && results.length;
-	const hideDropdown = !hasResults && search && windowWidth > 600;
 	const searchHistory = [...localStorage].reverse();
+
+	const showDropdownHistory = () => {
+		if (searchHistory.length) {
+			return searchHistory.map((movie, idx) => (
+				<DropdownOptionSearchHistory key={idx} movie={movie} />
+			));
+		} else {
+			return (
+				<div className='dropdown__content--empty-search'>
+					Waiting for movie search...
+				</div>
+			);
+		}
+	};
+
+	const showDropdownSearchResults = () => {
+		if (isLoading || !debouncedSearch) {
+			return <div className='dropdown__loading'>Loading...</div>;
+		} else if (results && !results?.length && !!search) {
+			return <div className='dropdown__no-results'>Try a different search</div>;
+		} else if (results?.length) {
+			return results
+				?.filter((m, idx) => idx < 10)
+				.map((movie, i) => <DropdownOption key={movie.id} movie={movie} />);
+		}
+	};
 
 	return (
 		<>
-			{(isDropdownOpen && search) || !isMobileSearchInactive ? (
-				<div className='dropdown' hidden={hideDropdown}>
+			{isDropdownOpen || !isMobileSearchInactive ? (
+				<div className='dropdown'>
 					<div className='dropdown__content dropdown__results'>
-						{!hasResults && (
-							<>
-								{searchHistory.length ? (
-									searchHistory.map((movie, idx) => (
-										<DropdownOptionSearchHistory key={idx} movie={movie} />
-									))
-								) : (
-									<div className='dropdown__content--empty-search'>
-										Waiting for movie search...
-									</div>
-								)}
-							</>
-						)}
-						{isLoading && search ? (
-							<div className='dropdown__loading'>Loading...</div>
-						) : (
-							search &&
-							results &&
-							results
-								.filter((m, idx) => idx < 10)
-								.map((movie, i) => <DropdownOption key={movie.id} movie={movie} />)
-						)}
+						{!search ? showDropdownHistory() : showDropdownSearchResults()}
 					</div>
 				</div>
 			) : null}

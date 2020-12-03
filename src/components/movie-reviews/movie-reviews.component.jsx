@@ -8,7 +8,8 @@ import freshTomatoIcon from '../../assets/icons/fresh-tomato.png';
 import rottenTomatoIcon from '../../assets/icons/rotten-tomato.png';
 import metaCriticIcon from '../../assets/icons/meta-critic.png';
 
-const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
+const MovieReviews = ({ selectedMovie }) => {
+	const { title, release_date, overview, poster_path } = selectedMovie;
 	const imdbSearchData = useStoreState((state) => state.imdbSearchData);
 	const imdbMovieData = useStoreState((state) => state.imdbMovieData);
 	const isLoading = useStoreState((state) => state.isLoading);
@@ -33,63 +34,63 @@ const MovieReviews = ({ selectedMovie: { title, release_date } }) => {
 		}
 	}, [imdbSearchData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	if (imdbMovieData && imdbMovieData.Ratings) {
-		const filteredRating = imdbMovieData.Ratings.filter(
-			(rating) => rating.Source === 'Rotten Tomatoes'
+	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;
+
+	const filteredRating = imdbMovieData?.Ratings?.filter(
+		(rating) => rating.Source === 'Rotten Tomatoes'
+	)
+		.map((rating) =>
+			parseInt(rating.Value.replace(/%/, '')) >= 60
+				? { ...rating, Icon: freshTomatoIcon }
+				: { ...rating, Icon: rottenTomatoIcon }
 		)
-			.map((rating) =>
-				parseInt(rating.Value.replace(/%/, '')) >= 60
-					? { ...rating, Icon: freshTomatoIcon }
-					: { ...rating, Icon: rottenTomatoIcon }
-			)
-			.pop();
+		.pop();
 
-		filteredRating && ratings.push(filteredRating);
+	filteredRating && ratings.push(filteredRating);
 
-		imdbMovieData.imdbRating &&
-			ratings.push({
-				Source: 'IMDB',
-				Value: imdbMovieData.imdbRating,
-				Icon: imdbIcon,
-			});
-		imdbMovieData.Metascore &&
-			ratings.push({
-				Source: 'Metascore',
-				Value: imdbMovieData.Metascore,
-				Icon: metaCriticIcon,
-			});
-	}
+	imdbMovieData.imdbRating &&
+		ratings.push({
+			Source: 'IMDB',
+			Value: imdbMovieData.imdbRating,
+			Icon: imdbIcon,
+		});
+
+	imdbMovieData.Metascore &&
+		ratings.push({
+			Source: 'Metascore',
+			Value: imdbMovieData.Metascore,
+			Icon: metaCriticIcon,
+		});
 
 	return (
 		<div className='movie-reviews'>
-			{isLoading.imdbSearch || isLoading.imdbMovieData ? (
+			{isLoading.imdbSearchData || isLoading.imdbMovieData ? (
 				<div className='movie-reviews__loading'>Loading reviews...</div>
 			) : (
 				<>
-					<div className='movie-reviews__img-container'>
-						<img
-							className='movie-reviews__img'
-							src={imdbMovieData.Poster}
-							alt='movie poster'
-						/>
-					</div>
+					{moviePoster && (
+						<div className='movie-reviews__poster-container'>
+							<img
+								className='movie-reviews__poster'
+								src={moviePoster}
+								alt='movie poster'
+							/>
+						</div>
+					)}
 					<div className='movie-reviews__container'>
 						<div className='movie-reviews__details'>
 							<div className='movie-reviews__title'>
-								<h1>{imdbMovieData.Title}</h1>
+								<div>{`${title} (${release_date.split('-')[0]})`}</div>
 							</div>
 							<div className='movie-reviews__ratings-container'>
-								{imdbMovieData &&
-									imdbMovieData.Ratings &&
+								{imdbMovieData?.Ratings &&
 									ratings.map(
-										({ Icon, Source, Value }, i) =>
-											Value !== 'N/A' && (
-												<MovieRating key={i} name={Source} rating={Value} icon={Icon} />
-											)
+										({ Icon, Value }, i) =>
+											Value !== 'N/A' && <MovieRating key={i} rating={Value} icon={Icon} />
 									)}
 							</div>
 						</div>
-						<p className='movie-reviews__plot'>{imdbMovieData.Plot}</p>
+						<p className='movie-reviews__plot'>{overview}</p>
 					</div>
 				</>
 			)}
