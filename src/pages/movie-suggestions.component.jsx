@@ -17,7 +17,7 @@ const MovieSuggestionsPage = () => {
 		primary_release_date.gte=${formatDate(pastDate)}&
 		primary_release_date.lte=${formatDate(date)}
 	`;
-	const API_KEY = 'api_key=68475f6c6a3dd0d5fda299f9ce48a964';
+	const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
 	const url = `https://api.themoviedb.org/3/discover/movie?${API_KEY}&${dateRange}&language=en-US&sort_by=popularity.desc&page=1&with_original_language=en`;
 
 	useEffect(() => {
@@ -26,6 +26,7 @@ const MovieSuggestionsPage = () => {
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	console.log('process.env', process.env);
 	function formatDate(date) {
 		const day = date.getDate();
 		const month = date.getMonth();

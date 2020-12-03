@@ -20,7 +20,7 @@ const SearchDropdown = ({ search }) => {
 
 	const debouncedSearch = useDebounce(search, 500);
 	const query = `query=${debouncedSearch || '%00'}`;
-	const API_KEY = 'api_key=68475f6c6a3dd0d5fda299f9ce48a964';
+	const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
 	const url = `https://api.themoviedb.org/3/search/movie?${API_KEY}&${query}`;
 
 	const initialLoad = useRef(true);

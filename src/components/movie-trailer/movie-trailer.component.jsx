@@ -10,7 +10,7 @@ const MovieTrailer = ({ selectedMovie: { title, release_date } }) => {
 
 	// const numberOfResults = 1;
 	// const query = `${title} ${release_date.split('-')[0]} Official Trailer`;
-	// const API_KEY = 'AIzaSyAzfm1mH_Na72MR_G7zeAq7QPSUiBD4nCI';
+	// const API_KEY = process.env.REACT_APP_YT_KEY;
 	// const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=${numberOfResults}&q=${query}&key=${API_KEY}`;
 
 	// useEffect(() => {

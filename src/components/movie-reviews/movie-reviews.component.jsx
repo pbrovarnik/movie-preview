@@ -18,7 +18,7 @@ const MovieReviews = ({ selectedMovie }) => {
 	const ratings = [];
 
 	const baseUrl = 'https://www.omdbapi.com';
-	const API_KEY = 'apikey=4a682a75';
+	const API_KEY = `apikey=${process.env.REACT_APP_IMDB_KEY}`;
 
 	useEffect(() => {
 		if (title) {
