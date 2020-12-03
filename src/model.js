@@ -128,7 +128,6 @@ const model = {
 		state.imdbMovieData = { ...payload };
 	}),
 	setYouTubeData: action((state, payload) => {
-		// payload.items[0].snippet.thumbnails
 		const youTubeVideoId = payload.items
 			.filter((item, idx) => idx < 1)
 			.map(({ id }) => id.videoId)

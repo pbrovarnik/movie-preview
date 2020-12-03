@@ -73,72 +73,66 @@ const InputSearch = ({
 		}
 	};
 
-	return (
-		<>
-			{windowWidth > 600 ? (
-				<input
-					className='input-search__field'
-					type='search'
-					name={inputName}
-					placeholder={placeholder}
-					onChange={handleChange}
-					value={value}
-					autoComplete='off'
-					onFocus={handleFocus}
-					ref={inputElm}
-					onKeyDown={handleEnterPress}
-				/>
-			) : (
-				<div
-					className={`input-group search pull-right ${
-						isMobileSearchInactive ? 'inactive' : ''
-					}`}
+	const mobileSearchInput = () => (
+		<div
+			className={`input-group search pull-right ${
+				isMobileSearchInactive ? 'inactive' : ''
+			}`}
+		>
+			<span
+				className={`input-group-addon opener ${
+					!isMobileSearchInactive ? 'bg-white' : ''
+				}`}
+			>
+				<i
+					className={`material-icons ${!isMobileSearchInactive ? 'icon-color' : ''}`}
+					onClick={handleFocusBlur}
+					onTouchStart={handleFocusBlur}
 				>
-					<span
-						className={`input-group-addon opener ${
-							!isMobileSearchInactive ? 'bg-white' : ''
-						}`}
-					>
-						<i
-							className={`material-icons ${
-								!isMobileSearchInactive ? 'icon-color' : ''
-							}`}
-							onClick={handleFocusBlur}
-							onTouchStart={handleFocusBlur}
-						>
-							{isMobileSearchInactive ? 'search' : 'arrow_back'}
-						</i>
-					</span>
-					<input
-						className='form-control'
-						type='search'
-						name={inputName}
-						placeholder={placeholder}
-						onChange={handleChange}
-						value={value}
-						autoComplete='off'
-						onFocus={handleFocus}
-						ref={inputElm}
-						onKeyDown={handleEnterPress}
-					/>
-					<span
-						className={`input-group-addon ${
-							!isMobileSearchInactive ? 'bg-white' : ''
-						}`}
-					>
-						<i
-							className={`material-icons ${
-								!isMobileSearchInactive ? 'icon-color' : ''
-							}`}
-							onClick={handleInputClear}
-						>
-							clear
-						</i>
-					</span>
-				</div>
-			)}
-		</>
+					{isMobileSearchInactive ? 'search' : 'arrow_back'}
+				</i>
+			</span>
+			<input
+				className='form-control'
+				type='search'
+				name={inputName}
+				placeholder={placeholder}
+				onChange={handleChange}
+				value={value}
+				autoComplete='off'
+				onFocus={handleFocus}
+				ref={inputElm}
+				onKeyDown={handleEnterPress}
+			/>
+			<span
+				className={`input-group-addon ${!isMobileSearchInactive ? 'bg-white' : ''}`}
+			>
+				<i
+					className={`material-icons ${!isMobileSearchInactive ? 'icon-color' : ''}`}
+					onClick={handleInputClear}
+				>
+					clear
+				</i>
+			</span>
+		</div>
 	);
+
+	const searchInput = () => (
+		<input
+			className='input-search__field'
+			type='search'
+			name={inputName}
+			placeholder={placeholder}
+			onChange={handleChange}
+			value={value}
+			autoComplete='off'
+			onFocus={handleFocus}
+			ref={inputElm}
+			onKeyDown={handleEnterPress}
+		/>
+	);
+
+	return <>{windowWidth > 600 ? searchInput() : mobileSearchInput()}</>;
 };
 
 export default InputSearch;

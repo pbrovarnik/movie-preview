@@ -4,6 +4,8 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import MovieSuggestionItem from '../components/movie-suggestion/movie-suggestion-item.component';
 import Spinner from '../components/loading/spinner.component';
 
+import { formatDate } from '../util-helpers';
+
 const MovieSuggestionsPage = () => {
 	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const isLoading = useStoreState((state) => state.isLoading.tmdbDiscoverData);
@@ -26,15 +28,6 @@ const MovieSuggestionsPage = () => {
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	console.log('process.env', process.env);
-	function formatDate(date) {
-		const day = date.getDate();
-		const month = date.getMonth();
-		return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${
-			day < 10 ? '0' + day : day
-		}`;
-	}
-
 	return (
 		<div className='movie-suggestions'>
 			{isLoading ? (
@@ -42,7 +35,6 @@ const MovieSuggestionsPage = () => {
 			) : (
 				<>
 					<h2>Recent movies</h2>
-
 					<div className='movie-suggestions-list'>
 						{results
 							?.filter((movie) => !movie.title.toLowerCase().includes('untitled'))
