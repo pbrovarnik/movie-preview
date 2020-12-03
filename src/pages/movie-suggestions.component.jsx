@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import MovieSuggestionItem from '../components/movie-suggestion/movie-suggestion-item.component';
+import Spinner from '../components/loading/spinner.component';
 
 const MovieSuggestionsPage = () => {
 	const fetchData = useStoreActions((actions) => actions.fetchData);
@@ -36,10 +37,11 @@ const MovieSuggestionsPage = () => {
 	return (
 		<div className='movie-suggestions'>
 			{isLoading ? (
-				<div className='dropdown__loading'>Loading...</div>
+				<Spinner />
 			) : (
 				<>
 					<h2>Recent movies</h2>
+
 					<div className='movie-suggestions-list'>
 						{results
 							?.filter((movie) => !movie.title.toLowerCase().includes('untitled'))

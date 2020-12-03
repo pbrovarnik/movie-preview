@@ -5,6 +5,7 @@ import useDebounce from '../use-debounce/use-debounce';
 
 import DropdownOption from '../dropdown-option/dropdown-option.component';
 import DropdownOptionSearchHistory from '../dropdown-option/dropdown-option-search-history.component';
+import Dots from '../loading/dots.component';
 
 const SearchDropdown = ({ search }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
@@ -55,7 +56,11 @@ const SearchDropdown = ({ search }) => {
 
 	const showDropdownSearchResults = () => {
 		if (isLoading || !debouncedSearch) {
-			return <div className='dropdown__loading'>Loading...</div>;
+			return (
+				<div className='dropdown__loading'>
+					<Dots />
+				</div>
+			);
 		} else if (results && !results?.length && !!search) {
 			return <div className='dropdown__no-results'>Try a different search</div>;
 		} else if (results?.length) {

@@ -23,7 +23,7 @@ const Hero = () => {
 					onClick={handleTitleClick}
 				>
 					<span className='hero__icon'>
-						<img src={filmIcon} />
+						<img src={filmIcon} alt='logo' />
 					</span>
 					<div className='hero__title'>Movie Preview</div>
 				</div>

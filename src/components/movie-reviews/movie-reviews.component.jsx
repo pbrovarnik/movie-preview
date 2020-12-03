@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import MovieRating from '../movie-rating/movie-rating.component';
+import Spinner from '../loading/spinner.component';
 
 import imdbIcon from '../../assets/icons/imdb.png';
 import freshTomatoIcon from '../../assets/icons/fresh-tomato.png';
@@ -65,7 +66,7 @@ const MovieReviews = ({ selectedMovie }) => {
 	return (
 		<div className='movie-reviews'>
 			{isLoading.imdbSearchData || isLoading.imdbMovieData ? (
-				<div className='movie-reviews__loading'>Loading reviews...</div>
+				<Spinner className='movie-reviews__loading' />
 			) : (
 				<>
 					{poster_path && (
