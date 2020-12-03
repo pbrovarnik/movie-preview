@@ -5,33 +5,33 @@
 	&__field {
 		width: 35vw;
 		height: 3.5rem;
-		font-size: 1.6rem;
+		font-size: $default-font-size;
 		text-indent: 0.8rem;
 		outline: none;
 		border-radius: 3px;
-		border: 2px solid darken(#fff, 15%);
+		border: 2px solid darken($white-color, 15%);
 		-webkit-appearance: none;
 		transition: all 0.1s;
 
 		&:focus {
-			border: 2px solid #359be4;
-			color: lighten(#000, 20%);
+			border: 2px solid $primary-color;
+			color: lighten($black-color, 20%);
 		}
 
 		&::-webkit-search-cancel-button {
 			-webkit-appearance: searchfield-cancel-button !important;
 		}
 
-		@media screen and (max-width: 700px) {
+		@include respond(700) {
 			height: 3rem;
 		}
 
-		@media screen and (max-width: 700px) {
+		@include respond(700) {
 			width: 45vw;
 		}
 	}
 
-	@media screen and (max-width: 600px) {
+	@include respond(600) {
 		position: absolute;
 		width: 100%;
 	}

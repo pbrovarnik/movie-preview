@@ -5,21 +5,18 @@
 	&__text {
 		padding: 0.9rem;
 		margin: 0;
-		color: darken(white, 50%);
-		font-size: 1.4rem;
+		color: darken($white-color, 50%);
+		font-size: $sm-font-size;
 
 		a {
-			color: darken(white, 50%);
-			font-size: 1.3rem;
-			transition: all 0.3s;
+			color: darken($white-color, 50%);
+			font-size: $sm-font-size;
 			display: inline-block;
 			background-color: $dark-grey;
 
 			&:hover,
 			&:active {
-				color: #54aae7;
-				-moz-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
-				-webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+				color: $primary-color;
 				box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
 			}
 		}

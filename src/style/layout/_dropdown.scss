@@ -2,17 +2,17 @@
 	position: absolute;
 	width: 35vw;
 
-	@media screen and (max-width: 700px) {
+	@include respond(700) {
 		width: 45vw;
 	}
 
-	@media screen and (max-width: 600px) {
+	@include respond(600) {
 		left: 4.5px;
 		width: 98vw;
 		top: 50px;
 	}
 
-	@media screen and (max-width: 400px) {
+	@include respond(400) {
 		left: 3.5px;
 	}
 
@@ -21,12 +21,12 @@
 		display: inline-block;
 		width: 100%;
 		margin-top: 1rem;
-		background-color: #f9f9f9;
+		background-color: $light-grey;
 		box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 		z-index: 1;
 		border-radius: 3px;
 
-		@media screen and (max-width: 600px) {
+		@include respond(600) {
 			height: 59rem;
 		}
 	}
@@ -39,7 +39,7 @@
 		justify-content: center;
 		align-items: center;
 		height: 6rem;
-		font-size: 1.4rem;
+		font-size: $sm-font-size;
 	}
 
 	&__item {
@@ -51,12 +51,12 @@
 		z-index: 1;
 
 		&:hover {
-			background-color: #c5e3f8;
+			background-color: $primary-color-light;
 		}
 
 		&--title {
 			text-align: left;
-			font-size: 1.4rem;
+			font-size: $sm-font-size;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
@@ -74,7 +74,7 @@
 		max-height: 50vh;
 		overflow-y: scroll;
 
-		@media screen and (max-width: 600px) {
+		@include respond(600) {
 			max-height: unset;
 		}
 	}
@@ -82,7 +82,7 @@
 	&__item > .material-icons {
 		transform: rotate(45deg);
 		margin-right: 1.5rem;
-		color: #609;
+		color: $used-link-color;
 	}
 
 	&__item-with-icon {
@@ -90,6 +90,6 @@
 		display: flex;
 		align-items: center;
 		margin-left: 1.5rem;
-		color: #609;
+		color: $used-link-color;
 	}
 }

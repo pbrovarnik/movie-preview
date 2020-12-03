@@ -1,5 +1,5 @@
 .hero {
-	background: linear-gradient(to right, #4b79a1, #283e51);
+	background: linear-gradient(to right, $secondary-color, $secondary-color-dark);
 
 	&__body {
 		display: grid;
@@ -7,7 +7,7 @@
 		justify-items: center;
 		align-items: center;
 
-		@include respond(phone) {
+		@include respond(600) {
 			display: flex;
 			justify-content: space-between;
 			margin-right: 1.5rem;
@@ -25,16 +25,16 @@
 	}
 
 	&__title {
-		color: #fff;
-		font-size: 1.87rem;
+		color: $white-color;
+		font-size: $mid-font-size;
 		margin: 1.5rem;
 
-		@media screen and (max-width: 700px) {
-			font-size: 1.48rem;
+		@include respond(700) {
+			font-size: $sm-font-size;
 		}
 
-		@media screen and (max-width: 600px) {
-			font-size: 1.87rem;
+		@include respond(600) {
+			font-size: $mid-font-size;
 		}
 	}
 

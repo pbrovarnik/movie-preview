@@ -2,11 +2,11 @@
 	height: 48rem;
 	margin-bottom: 1.5rem;
 
-	@media screen and (max-width: 500px) {
+	@include respond(500) {
 		height: 43rem;
 	}
 
-	@media screen and (max-width: 400px) {
+	@include respond(400) {
 		height: 33rem;
 	}
 }

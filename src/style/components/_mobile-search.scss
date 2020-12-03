@@ -28,14 +28,14 @@
 			height: 2.4rem;
 			width: 2.4rem;
 			align-self: center;
-			color: #fff;
+			color: $white-color;
 		}
 	}
 
 	& input {
 		border: none;
 		box-shadow: none !important;
-		font-size: 1.6rem;
+		font-size: $default-font-size;
 		padding: 0;
 		height: 100%;
 	}
@@ -46,19 +46,19 @@
 }
 
 .input-group-addon i:hover {
-	color: #359be4;
+	color: $primary-color;
 
-	@media screen and (max-width: 400px) {
-		color: #fff;
+	@include respond(400) {
+		color: $white-color;
 	}
 }
 
 .bg-white {
-	background: white !important;
+	background: $white-color !important;
 }
 
 .icon-color {
-	color: #359be4 !important;
+	color: $primary-color !important;
 }
 
 .inactive {

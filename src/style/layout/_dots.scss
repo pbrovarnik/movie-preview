@@ -4,12 +4,12 @@
 	left: 50%;
 	margin: -1.1rem 0 0 -3.1rem;
 
-	@media screen and (max-width: 600px) {
+	@include respond(600) {
 		top: 5%;
 	}
 
 	div {
-		background: #689cc5;
+		background: $primary-color;
 		display: inline-block;
 		height: 1.2rem;
 		width: 1.2rem;
