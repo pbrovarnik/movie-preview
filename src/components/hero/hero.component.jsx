@@ -11,16 +11,19 @@ const Hero = () => {
 		(state) => state.isMobileSearchInactive
 	);
 
-	const handleTitleClick = () => {
+	const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+	const handleTitleClick = () =>
 		history.location.pathname !== '/' && history.push('/');
-	};
 
 	return (
 		<div className='hero'>
 			<div className='hero__body'>
 				<div
 					className={`hero__container ${isMobileSearchInactive ? 'z-index-1' : ''}`}
-					onClick={handleTitleClick}
+					{...(isMobile
+						? { onTouchStart: handleTitleClick }
+						: { onClick: handleTitleClick })}
 				>
 					<span className='hero__icon'>
 						<img src={filmIcon} alt='logo' />
