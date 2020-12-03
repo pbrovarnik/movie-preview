@@ -8,7 +8,6 @@ import MovieReviews from '../components/movie-reviews/movie-reviews.component';
 
 const MovieDetailsPage = () => {
 	const selectedMovie = useStoreState((state) => state.selectedMovie);
-	const noMatchError = useStoreState((state) => state.noMatchError);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -19,13 +18,11 @@ const MovieDetailsPage = () => {
 
 	return (
 		<div className='movie-details'>
-			{Object.keys(selectedMovie).length && !noMatchError ? (
+			{Object.keys(selectedMovie).length && (
 				<>
 					<MovieTrailer selectedMovie={selectedMovie} />
 					<MovieReviews selectedMovie={selectedMovie} />
 				</>
-			) : (
-				<div>{noMatchError}</div>
 			)}
 			{/* <Footer /> */}
 		</div>

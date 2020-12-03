@@ -68,7 +68,7 @@ const MovieReviews = ({ selectedMovie }) => {
 				<div className='movie-reviews__loading'>Loading reviews...</div>
 			) : (
 				<>
-					{moviePoster && (
+					{poster_path && (
 						<div className='movie-reviews__poster-container'>
 							<img
 								className='movie-reviews__poster'

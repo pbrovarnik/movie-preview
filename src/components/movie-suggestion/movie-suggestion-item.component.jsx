@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreActions } from 'easy-peasy';
 
-import NotFoundImage from '../../assets/images/image-not-found.png';
+import NotFoundImage from '../../assets/images/backdrop-placeholder.png';
 
 const MovieSuggestionItem = React.memo(({ movie }) => {
 	const { title, release_date, overview, poster_path, backdrop_path } = movie;
@@ -30,7 +30,7 @@ const MovieSuggestionItem = React.memo(({ movie }) => {
 				/>
 			</div>
 			<div className='movie-suggestion-item__details'>
-				{moviePoster && (
+				{poster_path && (
 					<img
 						className='movie-suggestion-item__details--poster'
 						src={moviePoster}
