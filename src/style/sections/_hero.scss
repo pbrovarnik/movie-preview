@@ -39,8 +39,13 @@
 	}
 
 	&__icon {
-		color: #fff;
-		font-size: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		& > img {
+			width: 2rem;
+		}
 	}
 }
 

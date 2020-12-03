@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useStoreState } from 'easy-peasy';
 
 import MovieSearch from '../movie-search/movie-search.component';
+import filmIcon from '../../assets/icons/film-solid.svg';
 
 const Hero = () => {
 	const history = useHistory();
@@ -22,7 +23,7 @@ const Hero = () => {
 					onClick={handleTitleClick}
 				>
 					<span className='hero__icon'>
-						<i className='fas fa-film'></i>
+						<img src={filmIcon} />
 					</span>
 					<div className='hero__title'>Movie Preview</div>
 				</div>
