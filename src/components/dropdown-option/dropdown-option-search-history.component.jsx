@@ -11,9 +11,14 @@ const DropdownOptionsSearchHistory = ({ movie }) => {
 		(actions) => actions.setSelectedMovie
 	);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
+	const setYouTubeVideoId = useStoreActions(
+		(actions) => actions.setYouTubeVideoId
+	);
 
-	const handleNavigation = () =>
+	const handleNavigation = () => {
+		setYouTubeVideoId('');
 		history.location.pathname !== '/preview' && history.push('/preview');
+	};
 
 	const handleClick = () => {
 		setSelectedMovie(movie);

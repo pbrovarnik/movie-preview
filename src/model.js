@@ -135,6 +135,9 @@ const model = {
 
 		state.youTubeVideoId = youTubeVideoId;
 	}),
+	setYouTubeVideoId: action((state, payload) => {
+		state.youTubeVideoId = payload;
+	}),
 	setLoading: action((state, [urlKey, loading]) => {
 		switch (urlKey) {
 			case 'tmdbDiscoverUrl':

@@ -11,11 +11,15 @@ const DropdownOption = React.memo(({ movie }) => {
 	const setSelectedMovie = useStoreActions(
 		(actions) => actions.setSelectedMovie
 	);
+	const setYouTubeVideoId = useStoreActions(
+		(actions) => actions.setYouTubeVideoId
+	);
 	const addSearch = useStoreActions((actions) => actions.addSearch);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 	const setLocalStorage = useStoreActions((actions) => actions.setLocalStorage);
 
 	const handleClick = () => {
+		setYouTubeVideoId('');
 		addSearch('');
 		setSelectedMovie(movie);
 		toggleDropdown();
