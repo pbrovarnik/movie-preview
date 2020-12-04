@@ -11,14 +11,14 @@ const model = {
 	selectedMovie: {},
 	tmdbDiscoverData: {},
 	tmdbSearchData: {},
-	imdbSearchData: {},
-	imdbMovieData: {},
+	omdbSearchData: {},
+	omdbMovieData: {},
 	youTubeVideoId: '',
 	isLoading: {
 		tmdbDiscoverData: false,
 		tmdbSearchData: false,
-		imdbSearchData: false,
-		imdbMovieData: false,
+		omdbSearchData: false,
+		omdbMovieData: false,
 		youTubeSearchData: false,
 	},
 	fetchError: null,
@@ -29,8 +29,8 @@ const model = {
 			{
 				setTmdbDiscoverData,
 				setTmdbSearchData,
-				setImdbSearchData,
-				setImdbMovieData,
+				setOmdbSearchData,
+				setOmdbMovieData,
 				setYouTubeData,
 				setLoading,
 				setFetchError,
@@ -62,11 +62,11 @@ const model = {
 					case 'tmdbSearchUrl':
 						setTmdbSearchData(data);
 						break;
-					case 'imdbSearchUrl':
-						setImdbSearchData(data);
+					case 'omdbSearchUrl':
+						setOmdbSearchData(data);
 						break;
-					case 'imdbMovieUrl':
-						setImdbMovieData(data);
+					case 'omdbMovieUrl':
+						setOmdbMovieData(data);
 						break;
 					case 'youtubeUrl':
 						setYouTubeData(data);
@@ -110,22 +110,22 @@ const model = {
 	setTmdbSearchData: action((state, payload) => {
 		state.tmdbSearchData = { ...payload };
 	}),
-	setImdbSearchData: action((state, payload) => {
-		const imdbSearchData = payload.Search.filter(
+	setOmdbSearchData: action((state, payload) => {
+		const omdbSearchData = payload.Search.filter(
 			({ Title, Year }) =>
 				Title === state.selectedMovie.title &&
 				Year === state.selectedMovie.release_date.split('-')[0]
 		).pop();
 
-		if (!imdbSearchData && payload.Search.length) {
+		if (!omdbSearchData && payload.Search.length) {
 			state.noMatchError = 'IMDB id not found';
 			return;
 		}
 
-		state.imdbSearchData = { ...imdbSearchData };
+		state.omdbSearchData = { ...omdbSearchData };
 	}),
-	setImdbMovieData: action((state, payload) => {
-		state.imdbMovieData = { ...payload };
+	setOmdbMovieData: action((state, payload) => {
+		state.omdbMovieData = { ...payload };
 	}),
 	setYouTubeData: action((state, payload) => {
 		const youTubeVideoId = payload.items
@@ -143,11 +143,11 @@ const model = {
 			case 'tmdbSearchUrl':
 				state.isLoading.tmdbSearchData = loading;
 				break;
-			case 'imdbSearchUrl':
-				state.isLoading.imdbSearchData = loading;
+			case 'omdbSearchUrl':
+				state.isLoading.omdbSearchData = loading;
 				break;
-			case 'imdbMovieUrl':
-				state.isLoading.imdbMovieData = loading;
+			case 'omdbMovieUrl':
+				state.isLoading.omdbMovieData = loading;
 				break;
 			case 'youtubeUrl':
 				state.isLoading.youTubeSearchData = loading;
