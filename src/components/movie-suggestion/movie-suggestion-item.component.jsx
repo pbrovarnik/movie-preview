@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreActions } from 'easy-peasy';
 
+import ImageWithSpinner from '../image-with-spinner/image-with-spinner.component';
+
 import NotFoundImage from '../../assets/images/backdrop-placeholder.png';
 
 const MovieSuggestionItem = React.memo(({ movie }) => {
@@ -24,7 +26,7 @@ const MovieSuggestionItem = React.memo(({ movie }) => {
 	return (
 		<div className='movie-suggestion-item' onClick={handleClick}>
 			<div className='movie-suggestion-item__thumbnail'>
-				<img
+				<ImageWithSpinner
 					src={backdrop_path === null ? NotFoundImage : backdrop}
 					alt='movie backdrop'
 				/>

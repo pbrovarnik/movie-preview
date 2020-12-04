@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
-import useDebounce from '../use-debounce/use-debounce';
+import useDebounce from '../use-debounce/use-debounce.component';
 
 import DropdownOption from '../dropdown-option/dropdown-option.component';
 import DropdownOptionSearchHistory from '../dropdown-option/dropdown-option-search-history.component';
