@@ -20,8 +20,6 @@ const MovieTrailer = ({ selectedMovie: { title, release_date } }) => {
 		<div className='movie-trailer'>
 			<ReactPlayer
 				url={`https://www.youtube.com/watch?v=${youTubeVideoId}`}
-				width='100%'
-				height='100%'
 				controls={true}
 				playing={true}
 			/>

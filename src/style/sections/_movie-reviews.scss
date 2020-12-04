@@ -1,9 +1,18 @@
 .movie-reviews {
+	min-height: 10rem;
 	display: flex;
 	align-items: flex-start;
 
 	@include respond(600) {
 		justify-content: center;
+	}
+
+	@include respond(1300) {
+		padding: 0 5rem;
+	}
+
+	@include respond(1800) {
+		padding: 0 10rem;
 	}
 
 	&__loading > img {
@@ -30,6 +39,14 @@
 			max-width: unset;
 			margin-right: 1rem;
 		}
+
+		@include respond(1500) {
+			max-width: 600px;
+		}
+
+		@include respond(1800) {
+			max-width: 700px;
+		}
 	}
 
 	&__poster-container {
@@ -54,6 +71,10 @@
 		margin: 0;
 		margin-top: 0.5rem;
 		margin-bottom: 0.5rem;
+
+		@include respond(1500) {
+			font-size: $default-font-size;
+		}
 	}
 
 	&__details {
@@ -75,6 +96,10 @@
 		font-weight: 700;
 		margin-right: 1.5rem;
 		text-align: left;
+
+		@include respond(1500) {
+			font-size: $xl-font-size;
+		}
 	}
 
 	&__component {

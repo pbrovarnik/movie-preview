@@ -28,4 +28,22 @@
 			@content;
 		} //1100px
 	}
+
+	@if $breakpoint == 1300 {
+		@media screen and (min-width: 1300px) {
+			@content;
+		} //1300px
+	}
+
+	@if $breakpoint == 1500 {
+		@media screen and (min-width: 1500px) {
+			@content;
+		} //1500px
+	}
+
+	@if $breakpoint == 1800 {
+		@media screen and (min-width: 1900px) {
+			@content;
+		} //1800px
+	}
 }

@@ -1,12 +1,25 @@
 .movie-trailer {
-	height: 48rem;
+	height: 60vh;
 	margin-bottom: 1.5rem;
 
-	@include respond(500) {
-		height: 43rem;
+	@include respond(400) {
+		height: 40vh !important;
 	}
 
-	@include respond(400) {
-		height: 33rem;
+	@include respond(500) {
+		height: 50vh;
+	}
+
+	@include respond(700) {
+		height: 55vh;
+	}
+
+	@include respond(1500) {
+		height: 70vh;
+	}
+
+	& > div {
+		width: 100% !important;
+		height: 100% !important;
 	}
 }
