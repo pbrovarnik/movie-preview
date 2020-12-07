@@ -42,7 +42,7 @@ const model = {
 			setLoading([urlKey, false]);
 			return data;
 		} catch (error) {
-			console.log(error);
+			console.log('FETCH ERROR:', error);
 			setFetchError(error);
 			setLoading([urlKey, false]);
 		}
@@ -159,12 +159,14 @@ const model = {
 		state.youTubeVideoId = youTubeVideoId.key;
 	}),
 	setYouTubeData: action((state, payload) => {
-		const youTubeVideoId = payload.items
-			.filter((item, idx) => idx < 1)
-			.map(({ id }) => id.videoId)
-			.pop();
+		if (payload) {
+			const youTubeVideoId = payload.items
+				.filter((item, idx) => idx < 1)
+				.map(({ id }) => id.videoId)
+				.pop();
 
-		state.youTubeVideoId = youTubeVideoId;
+			state.youTubeVideoId = youTubeVideoId;
+		}
 	}),
 	clearYouTubeVideoId: action((state) => {
 		state.youTubeVideoId = '';
