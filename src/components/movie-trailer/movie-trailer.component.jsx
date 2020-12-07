@@ -8,11 +8,15 @@ const MovieTrailer = () => {
 
 	return (
 		<div className='movie-trailer'>
-			<ReactPlayer
-				url={`https://www.youtube.com/watch?v=${youTubeVideoId}`}
-				controls={true}
-				playing={true}
-			/>
+			{!youTubeVideoId ? (
+				<div className='movie-trailer--loading' />
+			) : (
+				<ReactPlayer
+					url={`https://www.youtube.com/watch?v=${youTubeVideoId}`}
+					controls={true}
+					playing={true}
+				/>
+			)}
 		</div>
 	);
 };
