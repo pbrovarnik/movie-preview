@@ -10,14 +10,14 @@ const Hero = () => {
 	const isMobileSearchInactive = useStoreState(
 		(state) => state.isMobileSearchInactive
 	);
-	const setYouTubeVideoId = useStoreActions(
-		(actions) => actions.setYouTubeVideoId
+	const clearYouTubeVideoId = useStoreActions(
+		(actions) => actions.clearYouTubeVideoId
 	);
 
 	const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 	const handleTitleClick = () => {
-		setYouTubeVideoId('');
+		clearYouTubeVideoId();
 		history.location.pathname !== '/' && history.push('/');
 	};
 

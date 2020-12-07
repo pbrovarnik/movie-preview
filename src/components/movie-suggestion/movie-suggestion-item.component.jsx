@@ -12,16 +12,20 @@ const MovieSuggestionItem = React.memo(({ movie }) => {
 	const setSelectedMovie = useStoreActions(
 		(actions) => actions.setSelectedMovie
 	);
-	const setYouTubeVideoId = useStoreActions(
-		(actions) => actions.setYouTubeVideoId
+	const clearYouTubeVideoId = useStoreActions(
+		(actions) => actions.clearYouTubeVideoId
+	);
+	const fetchAllDataForMovie = useStoreActions(
+		(actions) => actions.fetchAllDataForMovie
 	);
 
 	const handleNavigation = () => {
-		setYouTubeVideoId('');
+		clearYouTubeVideoId();
 		history.location.pathname !== '/preview' && history.push('/preview');
 	};
 
 	const handleClick = () => {
+		fetchAllDataForMovie(movie.id);
 		setSelectedMovie(movie);
 		handleNavigation();
 	};

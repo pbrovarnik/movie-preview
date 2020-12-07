@@ -11,16 +11,20 @@ const DropdownOptionsSearchHistory = ({ movie }) => {
 		(actions) => actions.setSelectedMovie
 	);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
-	const setYouTubeVideoId = useStoreActions(
-		(actions) => actions.setYouTubeVideoId
+	const clearYouTubeVideoId = useStoreActions(
+		(actions) => actions.clearYouTubeVideoId
+	);
+	const fetchAllDataForMovie = useStoreActions(
+		(actions) => actions.fetchAllDataForMovie
 	);
 
 	const handleNavigation = () => {
-		setYouTubeVideoId('');
+		clearYouTubeVideoId();
 		history.location.pathname !== '/preview' && history.push('/preview');
 	};
 
 	const handleClick = () => {
+		fetchAllDataForMovie(movie.id);
 		setSelectedMovie(movie);
 		toggleDropdown();
 		setOptionClicked();

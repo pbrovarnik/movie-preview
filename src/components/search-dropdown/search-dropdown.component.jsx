@@ -15,14 +15,11 @@ const SearchDropdown = ({ search }) => {
 		(state) => state.isMobileSearchInactive
 	);
 	const localStorage = useStoreState((state) => state.localStorage);
-	const fetchData = useStoreActions((actions) => actions.fetchData);
+	const fetchTmdbSearchData = useStoreActions(
+		(actions) => actions.fetchTmdbSearchData
+	);
 	const getLocalStorage = useStoreActions((actions) => actions.getLocalStorage);
-
 	const debouncedSearch = useDebounce(search, 500);
-	const query = `query=${debouncedSearch || '%00'}`;
-	const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
-	const url = `https://api.themoviedb.org/3/search/movie?${API_KEY}&${query}`;
-
 	const initialLoad = useRef(true);
 
 	useEffect(() => {
@@ -31,8 +28,8 @@ const SearchDropdown = ({ search }) => {
 			return;
 		}
 
-		fetchData({ tmdbSearchUrl: url });
-	}, [url]); // eslint-disable-line react-hooks/exhaustive-deps
+		fetchTmdbSearchData(debouncedSearch);
+	}, [debouncedSearch]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		getLocalStorage();

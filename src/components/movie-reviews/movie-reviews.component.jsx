@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import React from 'react';
+import { useStoreState } from 'easy-peasy';
 
 import MovieRating from '../movie-rating/movie-rating.component';
 import Spinner from '../loading/spinner.component';
@@ -11,29 +11,9 @@ import metaCriticIcon from '../../assets/icons/meta-critic.png';
 
 const MovieReviews = ({ selectedMovie }) => {
 	const { title, release_date, overview, poster_path } = selectedMovie;
-	const omdbSearchData = useStoreState((state) => state.omdbSearchData);
 	const omdbMovieData = useStoreState((state) => state.omdbMovieData);
 	const isLoading = useStoreState((state) => state.isLoading);
-	const fetchData = useStoreActions((actions) => actions.fetchData);
 	const ratings = [];
-
-	const baseUrl = 'https://www.omdbapi.com';
-	const API_KEY = `apikey=${process.env.REACT_APP_OMDB_KEY}`;
-
-	useEffect(() => {
-		if (title) {
-			const query = `s=${title}`;
-			const url = `${baseUrl}/?${API_KEY}&${query}`;
-			fetchData({ omdbSearchUrl: url });
-		}
-	}, [title]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
-		if (Object.keys(omdbSearchData || {}).length) {
-			const url = `${baseUrl}/?${API_KEY}&i=${omdbSearchData.imdbID}`;
-			fetchData({ omdbMovieUrl: url });
-		}
-	}, [omdbSearchData]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;
 
@@ -49,7 +29,7 @@ const MovieReviews = ({ selectedMovie }) => {
 
 	filteredRating && ratings.push(filteredRating);
 
-	omdbMovieData.omdbRating &&
+	omdbMovieData.imdbRating &&
 		ratings.push({
 			Source: 'IMDB',
 			Value: omdbMovieData.imdbRating,
@@ -65,7 +45,7 @@ const MovieReviews = ({ selectedMovie }) => {
 
 	return (
 		<div className='movie-reviews'>
-			{isLoading.omdbSearchData || isLoading.omdbMovieData ? (
+			{isLoading.tmdbMovieData || isLoading.omdbMovieData ? (
 				<Spinner className='movie-reviews__loading' />
 			) : (
 				<>
