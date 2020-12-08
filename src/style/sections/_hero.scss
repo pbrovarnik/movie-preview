@@ -1,5 +1,10 @@
 .hero {
+	grid-row: 1 / 2;
 	background: linear-gradient(to right, $secondary-color, $secondary-color-dark);
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
 
 	&__body {
 		display: grid;

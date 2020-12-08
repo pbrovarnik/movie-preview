@@ -1,3 +1,11 @@
+.movie-suggestions {
+	grid-row: 2 / 3;
+
+	&__heading {
+		margin-top: 1rem;
+	}
+}
+
 .movie-suggestions-list {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);

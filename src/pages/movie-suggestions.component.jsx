@@ -23,7 +23,7 @@ const MovieSuggestionsPage = () => {
 				<Spinner />
 			) : (
 				<>
-					<h2>Recent movies</h2>
+					<h2 className='movie-suggestions__heading'>Recent movies</h2>
 					<div className='movie-suggestions-list'>
 						{results
 							?.filter((movie) => !movie.title.toLowerCase().includes('untitled'))
