@@ -24,6 +24,11 @@ const MovieTrailer = () => {
 					url={`https://www.youtube.com/watch?v=${youTubeVideoId}`}
 					controls={true}
 					playing={true}
+					config={{
+						youtube: {
+							playerVars: { modestbranding: 1 },
+						},
+					}}
 				/>
 			)}
 		</div>
