@@ -1,29 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreActions } from 'easy-peasy';
 
 import ImageWithSpinner from '../image-with-spinner/image-with-spinner.component';
 
 import NotFoundImage from '../../assets/images/backdrop-placeholder.png';
 
 const MovieSuggestionItem = React.memo(({ movie }) => {
-	const { title, release_date, overview, poster_path, backdrop_path } = movie;
+	const {
+		id,
+		title,
+		release_date,
+		overview,
+		poster_path,
+		backdrop_path,
+	} = movie;
 	const history = useHistory();
-	const setSelectedMovie = useStoreActions(
-		(actions) => actions.setSelectedMovie
-	);
-	const fetchAllDataForMovie = useStoreActions(
-		(actions) => actions.fetchAllDataForMovie
-	);
-
-	const handleNavigation = () => {
-		history.location.pathname !== '/preview' && history.push('/preview');
-	};
 
 	const handleClick = () => {
-		fetchAllDataForMovie(movie.id);
-		setSelectedMovie(movie);
-		handleNavigation();
+		history.push(`/preview/${id}`);
 	};
 
 	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;

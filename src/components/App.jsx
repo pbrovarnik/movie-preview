@@ -14,7 +14,7 @@ function App() {
 					<Hero />
 					<Switch>
 						<Route exact path='/' component={MovieSuggestionsPage} />
-						<Route exact path='/preview' component={MovieDetailsPage} />
+						<Route exact path='/preview/:movieId' component={MovieDetailsPage} />
 						<Redirect to='/' />
 					</Switch>
 					<Footer />

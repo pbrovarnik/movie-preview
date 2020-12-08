@@ -10,11 +10,12 @@ import freshTomatoIcon from '../../assets/icons/fresh-tomato.png';
 import rottenTomatoIcon from '../../assets/icons/rotten-tomato.png';
 import metaCriticIcon from '../../assets/icons/meta-critic.png';
 
-const MovieReviews = ({ selectedMovie }) => {
-	const { title, release_date, overview, poster_path } = selectedMovie;
+const MovieReviews = () => {
+	const tmdbMovieData = useStoreState((state) => state.tmdbMovieData);
 	const omdbMovieData = useStoreState((state) => state.omdbMovieData);
 	const similarMoviesData = useStoreState((state) => state.similarMoviesData);
 	const isLoading = useStoreState((state) => state.isLoading);
+	const { title, release_date, overview, poster_path } = tmdbMovieData;
 	const ratings = [];
 
 	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;

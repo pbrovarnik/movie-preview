@@ -8,7 +8,6 @@ const model = {
 	isOptionClicked: false,
 	isDropdownOpen: false,
 	search: '',
-	selectedMovie: {},
 	tmdbDiscoverData: {},
 	tmdbSearchData: {},
 	tmdbMovieData: {},
@@ -22,12 +21,12 @@ const model = {
 		omdbMovieData: false,
 		youTubeSearchData: false,
 	},
-	fetchError: null,
+	fetchError: false,
 	// Data fetching
 	fetchData: thunk(async ({ setLoading, setFetchError }, url) => {
 		const urlKey = Object.keys(url)[0];
+		setFetchError(false);
 		setLoading([urlKey, true]);
-		setFetchError(null);
 
 		try {
 			const response = await fetch(...Object.values(url));
@@ -44,7 +43,7 @@ const model = {
 			return data;
 		} catch (error) {
 			console.log('FETCH ERROR:', error);
-			setFetchError(error);
+			setFetchError(true);
 			setLoading([urlKey, false]);
 		}
 	}),
@@ -92,9 +91,11 @@ const model = {
 			id
 		) => {
 			const movieData = await fetchTmdbMovieData(id);
-			fetchOmdbMovieData(movieData);
-			fetchVideoData(movieData);
-			fetchSimilarMoviesData(id);
+			if (movieData) {
+				fetchOmdbMovieData(movieData);
+				fetchVideoData(movieData);
+				fetchSimilarMoviesData(id);
+			}
 		}
 	),
 	fetchTmdbMovieData: thunk(async ({ fetchData, setTmdbMovieData }, id) => {
@@ -137,9 +138,6 @@ const model = {
 		}
 	),
 	// Actions
-	setSelectedMovie: action((state, payload) => {
-		state.selectedMovie = { ...payload };
-	}),
 	addSearch: action((state, payload) => {
 		state.search = payload;
 	}),

@@ -8,24 +8,16 @@ const DropdownOption = React.memo(({ movie }) => {
 	const setOptionClicked = useStoreActions(
 		(actions) => actions.setOptionClicked
 	);
-	const setSelectedMovie = useStoreActions(
-		(actions) => actions.setSelectedMovie
-	);
 	const addSearch = useStoreActions((actions) => actions.addSearch);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 	const setLocalStorage = useStoreActions((actions) => actions.setLocalStorage);
-	const fetchAllDataForMovie = useStoreActions(
-		(actions) => actions.fetchAllDataForMovie
-	);
 
 	const handleClick = () => {
 		addSearch('');
-		fetchAllDataForMovie(movie.id);
-		setSelectedMovie(movie);
 		toggleDropdown();
 		setOptionClicked();
 		setLocalStorage(movie);
-		history.location.pathname !== '/preview' && history.push('/preview');
+		history.push(`/preview/${movie.id}`);
 	};
 
 	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;

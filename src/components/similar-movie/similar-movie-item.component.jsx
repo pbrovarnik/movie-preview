@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStoreActions } from 'easy-peasy';
+import { useHistory } from 'react-router-dom';
 
 import ImageWithSpinner from '../image-with-spinner/image-with-spinner.component';
 
@@ -7,9 +8,7 @@ import NotFoundImage from '../../assets/images/backdrop-placeholder.png';
 
 const SimilarMovieItem = ({ movie, index }) => {
 	const { backdrop_path, title } = movie;
-	const setSelectedMovie = useStoreActions(
-		(actions) => actions.setSelectedMovie
-	);
+	const history = useHistory();
 	const fetchAllDataForMovie = useStoreActions(
 		(actions) => actions.fetchAllDataForMovie
 	);
@@ -28,8 +27,8 @@ const SimilarMovieItem = ({ movie, index }) => {
 
 	const handleClick = () => {
 		fetchAllDataForMovie(movie.id);
-		setSelectedMovie(movie);
 		clearYouTubeVideoId();
+		history.push(`/preview/${movie.id}`);
 	};
 
 	const backdrop = `https://image.tmdb.org/t/p/w500${backdrop_path}`;

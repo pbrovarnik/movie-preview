@@ -19,9 +19,6 @@ const InputSearch = ({
 		(state) => state.isMobileSearchInactive
 	);
 	const windowWidth = useStoreState((state) => state.windowWidth);
-	const setSelectedMovie = useStoreActions(
-		(actions) => actions.setSelectedMovie
-	);
 	const setMobileSearchInactive = useStoreActions(
 		(actions) => actions.setMobileSearchInactive
 	);
@@ -54,12 +51,11 @@ const InputSearch = ({
 	const handleEnterPress = (e) => {
 		if (e.key === 'Enter' && results?.length) {
 			addSearch('');
-			setSelectedMovie(results?.[0]);
 			toggleDropdown();
 			setOptionClicked();
 			setLocalStorage(results?.[0]);
 			inputElm.current.blur();
-			history.location.pathname !== '/preview' && history.push('/preview');
+			history.push(`/preview/${results?.[0].id}`);
 		}
 	};
 

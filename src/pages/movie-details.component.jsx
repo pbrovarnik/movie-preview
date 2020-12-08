@@ -1,24 +1,34 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useStoreState } from 'easy-peasy';
+import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import MovieTrailer from '../components/movie-trailer/movie-trailer.component';
 import MovieReviews from '../components/movie-reviews/movie-reviews.component';
 
 const MovieDetailsPage = () => {
-	const selectedMovie = useStoreState((state) => state.selectedMovie);
 	const history = useHistory();
+	const {
+		params: { movieId },
+	} = useRouteMatch();
+	const fetchError = useStoreState((state) => state.fetchError);
+	const fetchAllDataForMovie = useStoreActions(
+		(actions) => actions.fetchAllDataForMovie
+	);
 
 	useEffect(() => {
-		if (!Object.keys(selectedMovie).length) {
-			history.push('/');
+		fetchAllDataForMovie(movieId);
+	}, [movieId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (fetchError) {
+			history.location.pathname !== '/' && history.push('/');
 		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [fetchError]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className='movie-details'>
 			<MovieTrailer />
-			<MovieReviews selectedMovie={selectedMovie} />
+			<MovieReviews />
 		</div>
 	);
 };
