@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 
-import { useStoreState } from 'easy-peasy';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const MovieTrailer = () => {
+	const clearYouTubeVideoId = useStoreActions(
+		(actions) => actions.clearYouTubeVideoId
+	);
 	const youTubeVideoId = useStoreState((state) => state.youTubeVideoId);
+
+	useEffect(() => {
+		return () => {
+			clearYouTubeVideoId();
+		};
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className='movie-trailer'>

@@ -17,12 +17,8 @@ const MovieDetailsPage = () => {
 
 	return (
 		<div className='movie-details'>
-			{Object.keys(selectedMovie).length && (
-				<>
-					<MovieTrailer />
-					<MovieReviews selectedMovie={selectedMovie} />
-				</>
-			)}
+			<MovieTrailer />
+			<MovieReviews selectedMovie={selectedMovie} />
 		</div>
 	);
 };

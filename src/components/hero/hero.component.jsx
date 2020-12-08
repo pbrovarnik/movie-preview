@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 
 import MovieSearch from '../movie-search/movie-search.component';
 import filmIcon from '../../assets/icons/film-solid.svg';
@@ -10,14 +10,10 @@ const Hero = () => {
 	const isMobileSearchInactive = useStoreState(
 		(state) => state.isMobileSearchInactive
 	);
-	const clearYouTubeVideoId = useStoreActions(
-		(actions) => actions.clearYouTubeVideoId
-	);
 
 	const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 	const handleTitleClick = () => {
-		clearYouTubeVideoId();
 		history.location.pathname !== '/' && history.push('/');
 	};
 

@@ -23,6 +23,15 @@
 
 	&__thumbnail img {
 		width: 100%;
+		transition: all 0.2s;
+
+		&:hover {
+			filter: brightness(50%);
+
+			@include respond(400) {
+				filter: unset;
+			}
+		}
 	}
 
 	&__details {

@@ -11,9 +11,6 @@ const DropdownOption = React.memo(({ movie }) => {
 	const setSelectedMovie = useStoreActions(
 		(actions) => actions.setSelectedMovie
 	);
-	const clearYouTubeVideoId = useStoreActions(
-		(actions) => actions.clearYouTubeVideoId
-	);
 	const addSearch = useStoreActions((actions) => actions.addSearch);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
 	const setLocalStorage = useStoreActions((actions) => actions.setLocalStorage);
@@ -22,7 +19,6 @@ const DropdownOption = React.memo(({ movie }) => {
 	);
 
 	const handleClick = () => {
-		clearYouTubeVideoId();
 		addSearch('');
 		fetchAllDataForMovie(movie.id);
 		setSelectedMovie(movie);

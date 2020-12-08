@@ -26,7 +26,7 @@
 
 	&__title {
 		color: $white-color;
-		font-size: $mid-font-size;
+		font-size: $md-font-size;
 		margin: 1.5rem;
 
 		@include respond(700) {
@@ -34,7 +34,7 @@
 		}
 
 		@include respond(600) {
-			font-size: $mid-font-size;
+			font-size: $md-font-size;
 		}
 	}
 

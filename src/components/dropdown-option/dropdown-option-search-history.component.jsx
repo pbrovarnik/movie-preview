@@ -11,15 +11,11 @@ const DropdownOptionsSearchHistory = ({ movie }) => {
 		(actions) => actions.setSelectedMovie
 	);
 	const toggleDropdown = useStoreActions((actions) => actions.toggleDropdown);
-	const clearYouTubeVideoId = useStoreActions(
-		(actions) => actions.clearYouTubeVideoId
-	);
 	const fetchAllDataForMovie = useStoreActions(
 		(actions) => actions.fetchAllDataForMovie
 	);
 
 	const handleNavigation = () => {
-		clearYouTubeVideoId();
 		history.location.pathname !== '/preview' && history.push('/preview');
 	};
 

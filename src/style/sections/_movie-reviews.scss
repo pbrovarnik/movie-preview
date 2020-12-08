@@ -1,3 +1,11 @@
+.movie-review-container {
+	display: flex;
+
+	@include respond(900) {
+		flex-wrap: wrap;
+	}
+}
+
 .movie-reviews {
 	min-height: 10rem;
 	display: flex;
@@ -25,10 +33,9 @@
 		}
 	}
 
-	&__container {
+	&__details-container {
 		max-width: 500px;
 		margin-left: 1.5rem;
-		margin-right: 5rem;
 		margin-bottom: 1.5rem;
 		display: flex;
 		flex-direction: column;
@@ -37,7 +44,11 @@
 
 		@include respond(500) {
 			max-width: unset;
-			margin-right: 1rem;
+			margin-right: 1rem !important;
+		}
+
+		@include respond(900) {
+			margin-right: 5rem;
 		}
 
 		@include respond(1500) {
@@ -74,6 +85,90 @@
 
 		@include respond(1500) {
 			font-size: $default-font-size;
+		}
+	}
+
+	&__similar-movies-list {
+		margin: 0 5rem 1.5rem auto;
+		display: grid;
+		gap: 1rem;
+		grid-template-rows: 2.5rem 1fr;
+		grid-template-columns: 1fr 1fr;
+		text-align: left;
+
+		@include respond(1300) {
+			margin-right: 10rem;
+		}
+
+		@include respond(1100) {
+			margin-left: 5rem;
+		}
+
+		@include respond(500) {
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+
+		&--title {
+			text-align: left;
+			font-size: $default-font-size;
+			font-weight: 700;
+			grid-column: 1 / 3;
+
+			@include respond(1500) {
+				font-size: $md-font-size;
+			}
+		}
+	}
+
+	.item-0 {
+		grid-column: 1 / 2;
+	}
+	.item-1 {
+		grid-column: 2 / 3;
+	}
+
+	&__similar-movie {
+		cursor: pointer;
+		width: 18rem;
+
+		@include respond(400) {
+			width: unset;
+		}
+
+		& > img {
+			width: 18rem;
+			height: 10rem;
+			transition: all 0.2s;
+
+			&:hover {
+				filter: brightness(50%);
+
+				@include respond(400) {
+					filter: unset;
+				}
+			}
+
+			@include respond(400) {
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		&--title {
+			font-size: $sm-font-size;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+
+			@include respond(1500) {
+				font-size: $default-font-size;
+			}
+		}
+
+		& .image-spinner-container {
+			height: 10rem;
+			width: 18rem;
 		}
 	}
 

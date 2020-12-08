@@ -14,6 +14,7 @@ const model = {
 	tmdbMovieData: {},
 	omdbMovieData: {},
 	youTubeVideoId: '',
+	similarMoviesData: [],
 	isLoading: {
 		tmdbDiscoverData: false,
 		tmdbSearchData: false,
@@ -81,10 +82,19 @@ const model = {
 		}
 	),
 	fetchAllDataForMovie: thunk(
-		async ({ fetchTmdbMovieData, fetchOmdbMovieData, fetchVideoData }, id) => {
+		async (
+			{
+				fetchTmdbMovieData,
+				fetchOmdbMovieData,
+				fetchVideoData,
+				fetchSimilarMoviesData,
+			},
+			id
+		) => {
 			const movieData = await fetchTmdbMovieData(id);
-			await fetchOmdbMovieData(movieData);
-			await fetchVideoData(movieData);
+			fetchOmdbMovieData(movieData);
+			fetchVideoData(movieData);
+			fetchSimilarMoviesData(id);
 		}
 	),
 	fetchTmdbMovieData: thunk(async ({ fetchData, setTmdbMovieData }, id) => {
@@ -112,12 +122,18 @@ const model = {
 			if (data.results.length) {
 				setTmdbVideoData(data);
 			} else {
-				const numberOfResults = 1;
 				const query = `${title} ${release_date.split('-')[0]} Official Trailer`;
-				const youtubeUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=${numberOfResults}&q=${query}&key=${REACT_APP_YT_KEY}`;
+				const youtubeUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${REACT_APP_YT_KEY}&q=${query}&type=video&maxResults=1`;
 				const ytData = await fetchData({ youtubeUrl });
 				setYouTubeData(ytData);
 			}
+		}
+	),
+	fetchSimilarMoviesData: thunk(
+		async ({ fetchData, setSimilarMoviesData }, id) => {
+			const similarMoviesUrl = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`;
+			const data = await fetchData({ similarMoviesUrl });
+			setSimilarMoviesData(data);
 		}
 	),
 	// Actions
@@ -167,6 +183,13 @@ const model = {
 
 			state.youTubeVideoId = youTubeVideoId;
 		}
+	}),
+	setSimilarMoviesData: action((state, payload) => {
+		const similarMovies = payload.results.filter((item, idx) => idx < 2);
+		state.similarMoviesData = [...similarMovies];
+	}),
+	clearSimilarMoviesData: action((state) => {
+		state.similarMoviesData = [];
 	}),
 	clearYouTubeVideoId: action((state) => {
 		state.youTubeVideoId = '';

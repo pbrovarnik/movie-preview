@@ -23,6 +23,12 @@
 		} //700px
 	}
 
+	@if $breakpoint == 900 {
+		@media screen and (max-width: 900px) {
+			@content;
+		} //900px
+	}
+
 	@if $breakpoint == 1100 {
 		@media screen and (max-width: 1100px) {
 			@content;
