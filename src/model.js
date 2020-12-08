@@ -8,7 +8,8 @@ const model = {
 	isOptionClicked: false,
 	isDropdownOpen: false,
 	search: '',
-	tmdbDiscoverData: {},
+	pageNum: 1,
+	tmdbDiscoverData: [],
 	tmdbSearchData: {},
 	tmdbMovieData: {},
 	omdbMovieData: {},
@@ -47,30 +48,33 @@ const model = {
 			setLoading([urlKey, false]);
 		}
 	}),
-	fetchTmdbDiscoverData: thunk(async ({ fetchData, setTmdbDiscoverData }) => {
-		const formatDate = (date) => {
-			const day = date.getDate();
-			const month = date.getMonth();
-			return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${
-				day < 10 ? '0' + day : day
-			}`;
-		};
+	fetchTmdbDiscoverData: thunk(
+		async ({ fetchData, setTmdbDiscoverData }, pageNum) => {
+			const formatDate = (date) => {
+				const day = date.getDate();
+				const month = date.getMonth();
+				return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${
+					day < 10 ? '0' + day : day
+				}`;
+			};
 
-		const date = new Date();
-		const pastDate = new Date();
-		pastDate.setMonth(pastDate.getMonth() - 12);
+			const date = new Date();
+			const pastDate = new Date();
+			pastDate.setMonth(pastDate.getMonth() - 12);
 
-		const baseUrl = 'https://api.themoviedb.org/3/discover/movie';
-		const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
-		const dateRange = `
+			const baseUrl = 'https://api.themoviedb.org/3/discover/movie';
+			const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
+			const dateRange = `
 			primary_release_date.gte=${formatDate(pastDate)}&
 			primary_release_date.lte=${formatDate(date)}
 		`;
-		const sortBy = 'sort_by=popularity.desc';
-		const url = `${baseUrl}?${API_KEY}&${dateRange}&${sortBy}&with_original_language=en&page=1`;
-		const data = await fetchData({ tmdbDiscoverUrl: url });
-		setTmdbDiscoverData(data);
-	}),
+			const sortBy = 'sort_by=popularity.desc';
+			const page = `page=${pageNum}`;
+			const url = `${baseUrl}?${API_KEY}&${dateRange}&${sortBy}&${page}&with_original_language=en`;
+			const data = await fetchData({ tmdbDiscoverUrl: url });
+			setTmdbDiscoverData(data);
+		}
+	),
 	fetchTmdbSearchData: thunk(
 		async ({ fetchData, setTmdbSearchData }, search) => {
 			const query = `query=${search || '%00'}`;
@@ -156,8 +160,11 @@ const model = {
 	setFetchError: action((state, payload) => {
 		state.fetchError = payload;
 	}),
+	setPageNum: action((state, payload) => {
+		state.pageNum = payload;
+	}),
 	setTmdbDiscoverData: action((state, payload) => {
-		state.tmdbDiscoverData = { ...payload };
+		state.tmdbDiscoverData = [...state.tmdbDiscoverData, ...payload.results];
 	}),
 	setTmdbSearchData: action((state, payload) => {
 		state.tmdbSearchData = { ...payload };
