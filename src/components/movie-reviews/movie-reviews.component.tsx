@@ -1,5 +1,6 @@
 import React from 'react';
-import { useStoreState } from 'easy-peasy';
+
+import { useStoreState } from '../../easy-peasy/store-hooks';
 
 import MovieRating from '../movie-rating/movie-rating.component';
 import SimilarMovieItem from '../similar-movie/similar-movie-item.component';

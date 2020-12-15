@@ -4,7 +4,7 @@ import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
 import Hero from './hero/hero.component';
 import MovieDetailsPage from '../pages/movie-details.component';
 import MovieSuggestionsPage from '../pages/movie-suggestions.component';
-import Footer from '../components/footer/footer.component';
+import Footer from './footer/footer.component';
 
 function App() {
 	return (

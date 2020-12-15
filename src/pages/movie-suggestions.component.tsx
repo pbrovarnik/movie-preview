@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+
+import { useStoreState, useStoreActions } from '../easy-peasy/store-hooks';
 
 import MovieSuggestionItem from '../components/movie-suggestion/movie-suggestion-item.component';
 import Spinner from '../components/loading/spinner.component';
@@ -41,7 +42,7 @@ const MovieSuggestionsPage = () => {
 						{results
 							?.filter((movie) => !movie.title.toLowerCase().includes('untitled'))
 							.map((movie, idx) => (
-								<MovieSuggestionItem movie={movie} key={idx} />
+								<MovieSuggestionItem {...movie} key={idx} />
 							))}
 					</div>
 					{isLoading ? (

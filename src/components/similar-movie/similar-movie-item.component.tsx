@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react';
-import { useStoreActions } from 'easy-peasy';
 import { useHistory } from 'react-router-dom';
+
+import { useStoreActions } from '../../easy-peasy/store-hooks';
 
 import ImageWithSpinner from '../image-with-spinner/image-with-spinner.component';
 
 import NotFoundImage from '../../assets/images/backdrop-placeholder.png';
 
-const SimilarMovieItem = ({ movie, index }) => {
-	const { backdrop_path, title } = movie;
+type Props = {
+	movie: { backdrop_path: string; title: string; id: number };
+	index: number;
+};
+
+const SimilarMovieItem = React.memo(({ movie, index }: Props) => {
+	const { backdrop_path, title, id } = movie;
+
 	const history = useHistory();
 	const fetchAllDataForMovie = useStoreActions(
 		(actions) => actions.fetchAllDataForMovie
@@ -26,9 +33,9 @@ const SimilarMovieItem = ({ movie, index }) => {
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleClick = () => {
-		fetchAllDataForMovie(movie.id);
+		fetchAllDataForMovie(id);
 		clearYouTubeVideoId();
-		history.push(`/preview/${movie.id}`);
+		history.push(`/preview/${id}`);
 	};
 
 	const backdrop = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
@@ -45,6 +52,6 @@ const SimilarMovieItem = ({ movie, index }) => {
 			<div className='movie-reviews__similar-movie--title'>{title}</div>
 		</div>
 	);
-};
+});
 
 export default SimilarMovieItem;

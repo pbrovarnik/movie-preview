@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+
+import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
 
 import InputSearch from '../input-search/input-search.component';
 import SearchDropdown from '../search-dropdown/search-dropdown.component';
@@ -17,10 +18,10 @@ const MovieSearch = () => {
 		};
 	});
 
-	const handleClickOutside = ({ target }) => {
+	const handleClickOutside = (e: MouseEvent) => {
 		if (
-			target.name !== 'movieSearch' &&
-			!target.className.includes('dropdown') &&
+			(e.target as HTMLInputElement).name !== 'movieSearch' &&
+			!(e.target as Element).className.includes('dropdown') &&
 			isDropdownOpen
 		) {
 			toggleDropdown();
@@ -31,7 +32,9 @@ const MovieSearch = () => {
 		<>
 			<div className='input-search'>
 				<InputSearch
-					handleChange={({ target }) => addSearch(target.value)}
+					handleChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
+						addSearch(target.value)
+					}
 					placeholder='Search movie'
 					inputName='movieSearch'
 					value={search}

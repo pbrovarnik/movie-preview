@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreState } from 'easy-peasy';
+
+import { useStoreState } from '../../easy-peasy/store-hooks';
 
 import MovieSearch from '../movie-search/movie-search.component';
 import filmIcon from '../../assets/icons/film-solid.svg';

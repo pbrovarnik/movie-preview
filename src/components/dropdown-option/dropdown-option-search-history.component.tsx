@@ -1,8 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreActions } from 'easy-peasy';
 
-const DropdownOptionsSearchHistory = ({ movie: { id, title } }) => {
+import { useStoreActions } from '../../easy-peasy/store-hooks';
+import { TmdbSearchResultsType } from '../../easy-peasy/types';
+
+const DropdownOptionsSearchHistory = ({
+	movie: { id, title },
+}: {
+	movie: TmdbSearchResultsType;
+}) => {
 	const history = useHistory();
 	const setOptionClicked = useStoreActions(
 		(actions) => actions.setOptionClicked

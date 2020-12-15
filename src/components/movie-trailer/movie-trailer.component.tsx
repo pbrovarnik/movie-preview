@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
 
 const MovieTrailer = () => {
 	const clearYouTubeVideoId = useStoreActions(

@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 
 import ImageSpinner from '../loading/image-spinner.component';
 
-const ImageWithSpinner = ({ alt, src, ...props }) => {
+type Props = {
+	alt: string;
+	src: string;
+	className?: string;
+	height?: string;
+	width?: string;
+};
+
+const ImageWithSpinner = ({ alt, src, ...props }: Props) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const img = document.createElement('img');

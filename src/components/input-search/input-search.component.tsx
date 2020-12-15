@@ -1,6 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+
+import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
+
+type Props = {
+	placeholder: string;
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	inputName: string;
+	value: string;
+	handleFocus: () => void;
+	handleInputClear: () => void;
+};
 
 const InputSearch = ({
 	placeholder,
@@ -9,8 +19,8 @@ const InputSearch = ({
 	value,
 	handleFocus,
 	handleInputClear,
-}) => {
-	const inputElm = useRef(null);
+}: Props) => {
+	const inputElm = useRef<HTMLInputElement>(null);
 	const history = useHistory();
 
 	const { results } = useStoreState((state) => state.tmdbSearchData);
@@ -48,13 +58,13 @@ const InputSearch = ({
 		setWindowWidth(window.innerWidth);
 	};
 
-	const handleEnterPress = (e) => {
+	const handleEnterPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter' && results?.length) {
 			addSearch('');
 			toggleDropdown();
 			setOptionClicked();
 			setLocalStorage(results?.[0]);
-			inputElm.current.blur();
+			inputElm.current?.blur();
 			history.push(`/preview/${results?.[0].id}`);
 		}
 	};
@@ -62,10 +72,10 @@ const InputSearch = ({
 	const handleFocusBlur = () => {
 		if (isMobileSearchInactive) {
 			setMobileSearchInactive(false);
-			inputElm.current.focus();
+			inputElm.current?.focus();
 		} else if (!isMobileSearchInactive) {
 			setMobileSearchInactive(true);
-			inputElm.current.blur();
+			inputElm.current?.blur();
 		}
 	};
 

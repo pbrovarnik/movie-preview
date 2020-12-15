@@ -2,7 +2,7 @@ import React from 'react';
 
 import spinner from '../../assets/icons/spinner.svg';
 
-const Spinner = (props) => {
+const Spinner = (props: { className?: string }) => {
 	const className = props?.className
 		? `spinner-container ${props.className}`
 		: 'spinner-container';

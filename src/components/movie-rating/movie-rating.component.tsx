@@ -1,6 +1,11 @@
 import React from 'react';
 
-const MovieRating = React.memo(({ rating, icon }) => {
+type Props = {
+	rating: string;
+	icon: string;
+};
+
+const MovieRating = React.memo(({ rating, icon }: Props) => {
 	return (
 		<div className='movie-reviews__component'>
 			<img

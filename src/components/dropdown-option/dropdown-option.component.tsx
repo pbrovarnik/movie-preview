@@ -1,8 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStoreActions } from 'easy-peasy';
 
-const DropdownOption = React.memo(({ movie }) => {
+import { useStoreActions } from '../../easy-peasy/store-hooks';
+import { TmdbSearchResultsType } from '../../easy-peasy/types';
+
+const DropdownOption = React.memo((movie: TmdbSearchResultsType) => {
 	const { title, poster_path } = movie;
 	const history = useHistory();
 	const setOptionClicked = useStoreActions(

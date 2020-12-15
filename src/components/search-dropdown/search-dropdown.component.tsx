@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
 
+import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
 import useDebounce from '../use-debounce/use-debounce.component';
 
 import DropdownOption from '../dropdown-option/dropdown-option.component';
 import DropdownOptionSearchHistory from '../dropdown-option/dropdown-option-search-history.component';
 import Dots from '../loading/dots.component';
 
-const SearchDropdown = ({ search }) => {
+const SearchDropdown = ({ search }: { search: string }) => {
 	const isDropdownOpen = useStoreState((state) => state.isDropdownOpen);
 	const { results } = useStoreState((state) => state.tmdbSearchData);
 	const isLoading = useStoreState((state) => state.isLoading.tmdbSearchData);
@@ -63,7 +63,7 @@ const SearchDropdown = ({ search }) => {
 		} else if (results?.length) {
 			return results
 				?.filter((m, idx) => idx < 10)
-				.map((movie, i) => <DropdownOption key={movie.id} movie={movie} />);
+				.map((movie, i) => <DropdownOption key={movie.id} {...movie} />);
 		}
 	};
 
