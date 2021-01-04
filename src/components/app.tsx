@@ -7,7 +7,6 @@ import MovieSuggestionsPage from '../pages/movie-suggestions.component';
 import Footer from './footer/footer.component';
 
 function App() {
-	console.log('PROCESS', process.env);
 	return (
 		<>
 			<BrowserRouter>
