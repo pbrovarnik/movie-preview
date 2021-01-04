@@ -16,18 +16,20 @@ jobs:
    # Get code from repo
    - name: Checkout code
      uses: actions/checkout@v2
-     env:
-      REACT_APP_YT_KEY: ${{secrets.REACT_APP_YT_KEY}}
-      REACT_APP_TMDB_KEY: ${{secrets.REACT_APP_TMDB_KEY}}
-      REACT_APP_OMDB_KEY: ${{secrets.REACT_APP_OMDB_KEY}}
    # Install NodeJS
    - name: Use Node.js 12
      uses: actions/setup-node@v2
      with:
       node-version: '12'
    # Run npm install and build on our code
-   - run: npm install
-   - run: npm run build --if-present
+   - name: Build React static files
+     run: |
+      npm install
+      npm run build --if-present
+     env:
+      REACT_APP_YT_KEY: ${{secrets.REACT_APP_YT_KEY}}
+      REACT_APP_TMDB_KEY: ${{secrets.REACT_APP_TMDB_KEY}}
+      REACT_APP_OMDB_KEY: ${{secrets.REACT_APP_OMDB_KEY}}
    # Deploy to Netlify using our production secrets
    - name: Deploy to netlify
      uses: netlify/actions/cli@master
