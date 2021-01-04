@@ -16,6 +16,10 @@ jobs:
    # Get code from repo
    - name: Checkout code
      uses: actions/checkout@v2
+     env:
+      REACT_APP_YT_KEY: ${{secrets.REACT_APP_YT_KEY}}
+      REACT_APP_TMDB_KEY: ${{secrets.REACT_APP_TMDB_KEY}}
+      REACT_APP_OMDB_KEY: ${{secrets.REACT_APP_OMDB_KEY}}
    # Install NodeJS
    - name: Use Node.js 12
      uses: actions/setup-node@v2
