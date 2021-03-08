@@ -10,6 +10,7 @@
 		"@types/node": "^14.14.12",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
+		"@types/react-router-dom": "^5.1.6",
 		"easy-peasy": "^4.0.1",
 		"node-sass": "^4.14.1",
 		"react": "^17.0.1",
@@ -39,8 +40,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"devDependencies": {
-		"@types/react-router-dom": "^5.1.6"
 	}
 }
