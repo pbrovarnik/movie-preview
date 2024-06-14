@@ -2,6 +2,7 @@
 	"name": "movie-trailers",
 	"private": true,
 	"version": "0.0.0",
+	"homepage": "https://pbrovarnik.github.io/movie-preview",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
