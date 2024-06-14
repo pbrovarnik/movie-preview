@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useStoreState, useStoreActions } from '../easy-peasy/store-hooks';
 
@@ -7,9 +7,7 @@ import Spinner from '../components/loading/spinner.component';
 import Dots from '../components/loading/dots.component';
 
 const MovieSuggestionsPage = () => {
-	const fetchTmdbDiscoverData = useStoreActions(
-		(actions) => actions.fetchTmdbDiscoverData
-	);
+	const fetchTmdbDiscoverData = useStoreActions((actions) => actions.fetchTmdbDiscoverData);
 	const setPageNum = useStoreActions((actions) => actions.setPageNum);
 	const pageNum = useStoreState((state) => state.pageNum);
 	const isLoading = useStoreState((state) => state.isLoading.tmdbDiscoverData);
@@ -32,13 +30,13 @@ const MovieSuggestionsPage = () => {
 	}, [pageNum]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className='movie-suggestions'>
+		<div className="movie-suggestions">
 			{isLoading && !results.length ? (
 				<Spinner />
 			) : (
 				<>
-					<h2 className='movie-suggestions__heading'>Recent movies</h2>
-					<div className='movie-suggestions-list'>
+					<h2 className="movie-suggestions__heading">Recent movies</h2>
+					<div className="movie-suggestions-list">
 						{results
 							?.filter((movie) => !movie.title.toLowerCase().includes('untitled'))
 							.map((movie, idx) => (
@@ -46,14 +44,11 @@ const MovieSuggestionsPage = () => {
 							))}
 					</div>
 					{isLoading ? (
-						<div className='movie-suggestions__dots'>
+						<div className="movie-suggestions__dots">
 							<Dots />
 						</div>
 					) : (
-						<button
-							className='btn btn-primary movie-suggestions__load-btn'
-							onClick={() => setPageNum(pageNum + 1)}
-						>
+						<button className="btn btn-primary movie-suggestions__load-btn" onClick={() => setPageNum(pageNum + 1)}>
 							Load more
 						</button>
 					)}

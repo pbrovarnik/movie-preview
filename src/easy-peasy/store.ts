@@ -1,16 +1,7 @@
 import { createStore, action, thunk } from 'easy-peasy';
 
 import { Model } from './model';
-import {
-	TmdbSearchResultsType,
-	TmdbMovieDataType,
-	TmdbSearchDataType,
-	TmdbVideoResultType,
-	TmdbVideoDataType,
-	OmdbMovieDataType,
-	YouTubeVideoItemType,
-	YouTubeVideoType,
-} from './types';
+import { TmdbMovieDataType, TmdbSearchDataType, TmdbVideoDataType, OmdbMovieDataType, YouTubeVideoItemType, YouTubeVideoType } from './types';
 
 export const store = createStore<Model>({
 	// Store
@@ -72,15 +63,13 @@ export const store = createStore<Model>({
 		const formatDate = (date: Date) => {
 			const day = date.getDate();
 			const month = date.getMonth() + 1;
-			return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${
-				day < 10 ? '0' + day : day
-			}`;
+			return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 		};
 		const date = new Date();
 		const pastDate = new Date();
 		pastDate.setMonth(pastDate.getMonth() - 12);
 		const baseUrl = 'https://api.themoviedb.org/3/discover/movie';
-		const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
+		const API_KEY = `api_key=${import.meta.env.APP_TMDB_KEY}`;
 		const dateRange = `
 				primary_release_date.gte=${formatDate(pastDate)}&
 				primary_release_date.lte=${formatDate(date)}
@@ -94,18 +83,13 @@ export const store = createStore<Model>({
 	fetchTmdbSearchData: thunk(async (actions, search) => {
 		const { fetchData, setTmdbSearchData } = actions;
 		const query = `query=${search || '%00'}`;
-		const API_KEY = `api_key=${process.env.REACT_APP_TMDB_KEY}`;
+		const API_KEY = `api_key=${import.meta.env.APP_TMDB_KEY}`;
 		const url = `https://api.themoviedb.org/3/search/movie?${API_KEY}&${query}`;
 		const data = await fetchData({ tmdbSearchUrl: url });
 		setTmdbSearchData(data);
 	}),
 	fetchAllDataForMovie: thunk(async (actions, id) => {
-		const {
-			fetchTmdbMovieData,
-			fetchOmdbMovieData,
-			fetchVideoData,
-			fetchSimilarMoviesData,
-		} = actions;
+		const { fetchTmdbMovieData, fetchOmdbMovieData, fetchVideoData, fetchSimilarMoviesData } = actions;
 		const movieData = await fetchTmdbMovieData(id);
 		if (movieData) {
 			fetchOmdbMovieData(movieData);
@@ -115,34 +99,34 @@ export const store = createStore<Model>({
 	}),
 	fetchTmdbMovieData: thunk(async (actions, id) => {
 		const { fetchData, setTmdbMovieData } = actions;
-		const tmdbMovieUrl = `https://api.themoviedb.org/3/movie/${id}?&api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`;
+		const tmdbMovieUrl = `https://api.themoviedb.org/3/movie/${id}?&api_key=${import.meta.env.APP_TMDB_KEY}&language=en-US`;
 		const data = await fetchData({ tmdbMovieUrl });
 		setTmdbMovieData(data);
 		return data;
 	}),
 	fetchOmdbMovieData: thunk(async (actions, { imdb_id }) => {
 		const { fetchData, setOmdbMovieData } = actions;
-		const omdbMovieUrl = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&i=${imdb_id}`;
+		const omdbMovieUrl = `https://www.omdbapi.com/?apikey=${import.meta.env.APP_OMDB_KEY}&i=${imdb_id}`;
 		const data = await fetchData({ omdbMovieUrl });
 		setOmdbMovieData(data);
 	}),
 	fetchVideoData: thunk(async (actions, { id, title, release_date }) => {
 		const { fetchData, setTmdbVideoData, setYouTubeData } = actions;
-		const { REACT_APP_TMDB_KEY, REACT_APP_YT_KEY } = process.env;
-		const tmdbVideoUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${REACT_APP_TMDB_KEY}&language=en-US`;
+		const { APP_TMDB_KEY, APP_YT_KEY } = import.meta.env;
+		const tmdbVideoUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APP_TMDB_KEY}&language=en-US`;
 		const data = await fetchData({ tmdbVideoUrl });
 		if (data.results.length) {
 			setTmdbVideoData(data);
 		} else {
 			const query = `${title} ${release_date.split('-')[0]} Official Trailer`;
-			const youtubeUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${REACT_APP_YT_KEY}&q=${query}&type=video&maxResults=1`;
+			const youtubeUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${APP_YT_KEY}&q=${query}&type=video&maxResults=1`;
 			const ytData = await fetchData({ youtubeUrl });
 			setYouTubeData(ytData);
 		}
 	}),
 	fetchSimilarMoviesData: thunk(async (actions, id) => {
 		const { fetchData, setSimilarMoviesData } = actions;
-		const similarMoviesUrl = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`;
+		const similarMoviesUrl = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${import.meta.env.APP_TMDB_KEY}&language=en-US&page=1`;
 		const data = await fetchData({ similarMoviesUrl });
 		setSimilarMoviesData(data);
 	}),
@@ -181,21 +165,19 @@ export const store = createStore<Model>({
 		state.omdbMovieData = { ...payload };
 	}),
 	setTmdbVideoData: action((state, payload: TmdbVideoDataType) => {
-		const youTubeVideoId = payload.results
-			.filter((item: TmdbVideoResultType, idx: number) => idx < 1)
-			.pop();
-		if (youTubeVideoId) state.youTubeVideoId = youTubeVideoId.key;
+		const officialTrailer = payload.results.find((video) => video?.type?.toLocaleLowerCase() === 'trailer');
+		const youTubeVideoId = payload.results.filter((_, idx: number) => idx < 1).pop();
+
+		if (youTubeVideoId) state.youTubeVideoId = officialTrailer?.key ? officialTrailer?.key : youTubeVideoId.key;
 	}),
 	setSimilarMoviesData: action((state, payload: TmdbSearchDataType) => {
-		const similarMovies = payload.results.filter(
-			(item: TmdbSearchResultsType, idx: number) => idx < 2
-		);
+		const similarMovies = payload.results.filter((_, idx: number) => idx < 2);
 		state.similarMoviesData = [...similarMovies];
 	}),
 	setYouTubeData: action((state, payload: YouTubeVideoType) => {
 		if (payload) {
 			const youTubeVideoId = payload.items
-				.filter((item: YouTubeVideoItemType, idx: number) => idx < 1)
+				.filter((_, idx: number) => idx < 1)
 				.map(({ id }: YouTubeVideoItemType) => id.videoId)
 				.pop();
 

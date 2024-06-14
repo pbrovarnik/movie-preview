@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import ImageSpinner from '../loading/image-spinner.component';
 
@@ -17,15 +17,7 @@ const ImageWithSpinner = ({ alt, src, ...props }: Props) => {
 	img.src = src;
 	img.onload = () => setLoaded(true);
 
-	return (
-		<>
-			{loaded ? (
-				<img src={src} alt={alt} {...props} />
-			) : (
-				<ImageSpinner {...props} />
-			)}
-		</>
-	);
+	return <>{loaded ? <img src={src} alt={alt} {...props} /> : <ImageSpinner {...props} />}</>;
 };
 
 export default ImageWithSpinner;

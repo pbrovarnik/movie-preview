@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 import { useStoreState, useStoreActions } from '../easy-peasy/store-hooks';
 
@@ -11,28 +11,26 @@ type MatchParams = {
 };
 
 const MovieDetailsPage = () => {
-	const history = useHistory();
-	const {
-		params: { movieId },
-	} = useRouteMatch<MatchParams>();
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const { movieId } = useParams<MatchParams>();
 
 	const fetchError = useStoreState((state) => state.fetchError);
-	const fetchAllDataForMovie = useStoreActions(
-		(actions) => actions.fetchAllDataForMovie
-	);
+	const fetchAllDataForMovie = useStoreActions((actions) => actions.fetchAllDataForMovie);
 
 	useEffect(() => {
-		fetchAllDataForMovie(parseInt(movieId));
+		fetchAllDataForMovie(parseInt(movieId!));
 	}, [movieId]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (fetchError) {
-			history.location.pathname !== '/' && history.push('/');
+			location.pathname !== '/' && navigate('/');
 		}
 	}, [fetchError]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className='movie-details'>
+		<div className="movie-details">
 			<MovieTrailer />
 			<MovieReviews />
 		</div>

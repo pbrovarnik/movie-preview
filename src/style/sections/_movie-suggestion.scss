@@ -1,6 +1,8 @@
-.movie-suggestions {
+.main-content {
 	grid-row: 2 / 3;
+}
 
+.movie-suggestions {
 	&__heading {
 		margin-top: 1rem;
 	}

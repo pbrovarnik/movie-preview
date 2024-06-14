@@ -1,40 +1,51 @@
-#  Name of workflow
-name: Deploy workflow
-
-# When workflow is triggered
 on:
- push:
-  branches: [master]
+  push:
+    branches:
+      - main
 
-# Jobs to carry out
 jobs:
- deploy:
-  # Operating system to run job on
-  runs-on: ubuntu-latest
-  # Steps in job
-  steps:
-   # Get code from repo
-   - name: Checkout code
-     uses: actions/checkout@v2
-   # Install NodeJS
-   - name: Use Node.js 12
-     uses: actions/setup-node@v2
-     with:
-      node-version: '12'
-   # Run npm install and build on our code
-   - name: Build React static files
-     run: |
-      npm install
-      npm run build --if-present
-     env:
-      REACT_APP_YT_KEY: ${{secrets.REACT_APP_YT_KEY}}
-      REACT_APP_TMDB_KEY: ${{secrets.REACT_APP_TMDB_KEY}}
-      REACT_APP_OMDB_KEY: ${{secrets.REACT_APP_OMDB_KEY}}
-   # Deploy to Netlify using our production secrets
-   - name: Deploy to netlify
-     uses: netlify/actions/cli@master
-     env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-     with:
-      args: deploy --dir=build --prod
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Build project
+        run: npm run build
+        env:
+          APP_TMDB_KEY: ${{ secrets.APP_TMDB_KEY }}
+          APP_OMDB_KEY: ${{ secrets.APP_OMDB_KEY }}
+          APP_YT_KEY: ${{ secrets.APP_YT_KEY }}
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

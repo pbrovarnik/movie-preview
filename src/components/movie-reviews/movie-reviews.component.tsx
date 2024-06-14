@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useStoreState } from '../../easy-peasy/store-hooks';
 
 import MovieRating from '../movie-rating/movie-rating.component';
@@ -21,14 +19,8 @@ const MovieReviews = () => {
 
 	const moviePoster = `https://image.tmdb.org/t/p/w92${poster_path}`;
 
-	const filteredRating = omdbMovieData?.Ratings?.filter(
-		(rating) => rating.Source === 'Rotten Tomatoes'
-	)
-		.map((rating) =>
-			parseInt(rating.Value.replace(/%/, '')) >= 60
-				? { ...rating, Icon: freshTomatoIcon }
-				: { ...rating, Icon: rottenTomatoIcon }
-		)
+	const filteredRating = omdbMovieData?.Ratings?.filter((rating) => rating.Source === 'Rotten Tomatoes')
+		.map((rating) => (parseInt(rating.Value.replace(/%/, '')) >= 60 ? { ...rating, Icon: freshTomatoIcon } : { ...rating, Icon: rottenTomatoIcon }))
 		.pop();
 
 	filteredRating && ratings.push(filteredRating);
@@ -48,45 +40,31 @@ const MovieReviews = () => {
 		});
 
 	return (
-		<div className='movie-review-container'>
+		<div className="movie-review-container">
 			{isLoading.tmdbMovieData || isLoading.omdbMovieData ? (
-				<Spinner className='movie-reviews__loading' />
+				<Spinner className="movie-reviews__loading" />
 			) : (
 				<>
-					<div className='movie-reviews'>
+					<div className="movie-reviews">
 						{poster_path && (
-							<div className='movie-reviews__poster-container'>
-								<img
-									className='movie-reviews__poster'
-									src={moviePoster}
-									alt='movie poster'
-								/>
+							<div className="movie-reviews__poster-container">
+								<img className="movie-reviews__poster" src={moviePoster} alt="movie poster" />
 							</div>
 						)}
-						<div className='movie-reviews__details-container'>
-							<div className='movie-reviews__details'>
-								<div className='movie-reviews__title'>
+						<div className="movie-reviews__details-container">
+							<div className="movie-reviews__details">
+								<div className="movie-reviews__title">
 									<div>{`${title} (${release_date?.split('-')[0]})`}</div>
 								</div>
-								<div className='movie-reviews__ratings-container'>
-									{omdbMovieData?.Ratings &&
-										ratings.map(
-											({ Icon, Value }, i) =>
-												Value !== 'N/A' && (
-													<MovieRating key={i} rating={Value} icon={Icon} />
-												)
-										)}
+								<div className="movie-reviews__ratings-container">
+									{omdbMovieData?.Ratings && ratings.map(({ Icon, Value }, i) => Value !== 'N/A' && <MovieRating key={i} rating={Value} icon={Icon} />)}
 								</div>
 							</div>
-							<p className='movie-reviews__plot'>{overview}</p>
+							<p className="movie-reviews__plot">{overview}</p>
 						</div>
 					</div>
-					<div className='movie-reviews__similar-movies-list'>
-						{!!similarMoviesData.length && (
-							<div className='movie-reviews__similar-movies-list--title'>
-								Similar movies
-							</div>
-						)}
+					<div className="movie-reviews__similar-movies-list">
+						{!!similarMoviesData.length && <div className="movie-reviews__similar-movies-list--title">Similar movies</div>}
 						{similarMoviesData?.map((movie, idx) => (
 							<SimilarMovieItem movie={movie} key={idx} index={idx} />
 						))}

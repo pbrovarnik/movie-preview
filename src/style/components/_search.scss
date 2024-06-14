@@ -10,16 +10,11 @@
 		outline: none;
 		border-radius: 3px;
 		border: 2px solid darken($white-color, 15%);
-		-webkit-appearance: none;
 		transition: all 0.1s;
 
 		&:focus {
 			border: 2px solid $primary-color;
 			color: lighten($black-color, 20%);
-		}
-
-		&::-webkit-search-cancel-button {
-			-webkit-appearance: searchfield-cancel-button !important;
 		}
 
 		@include respond(700) {

@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 
 import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
 
 const MovieTrailer = () => {
-	const clearYouTubeVideoId = useStoreActions(
-		(actions) => actions.clearYouTubeVideoId
-	);
+	const clearYouTubeVideoId = useStoreActions((actions) => actions.clearYouTubeVideoId);
 	const youTubeVideoId = useStoreState((state) => state.youTubeVideoId);
 
 	useEffect(() => {
@@ -16,9 +14,9 @@ const MovieTrailer = () => {
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className='movie-trailer'>
+		<div className="movie-trailer">
 			{!youTubeVideoId ? (
-				<div className='movie-trailer--loading' />
+				<div className="movie-trailer--loading" />
 			) : (
 				<ReactPlayer
 					url={`https://www.youtube.com/watch?v=${youTubeVideoId}`}

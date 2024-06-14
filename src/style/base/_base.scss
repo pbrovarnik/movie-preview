@@ -8,9 +8,9 @@ body {
 	text-align: center;
 }
 
-.app {
+.layout {
 	min-height: 100vh;
 	margin: 0;
 	display: grid;
-	grid-template-rows: 5.5rem 1fr 3.8rem;
+	grid-template-rows: 5rem 1fr 3.8rem;
 }

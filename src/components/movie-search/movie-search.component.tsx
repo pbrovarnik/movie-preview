@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useStoreState, useStoreActions } from '../../easy-peasy/store-hooks';
 
@@ -19,24 +19,18 @@ const MovieSearch = () => {
 	});
 
 	const handleClickOutside = (e: MouseEvent) => {
-		if (
-			(e.target as HTMLInputElement).name !== 'movieSearch' &&
-			!(e.target as Element).className.includes('dropdown') &&
-			isDropdownOpen
-		) {
+		if ((e.target as HTMLInputElement).name !== 'movieSearch' && !(e.target as Element).className.includes('dropdown') && isDropdownOpen) {
 			toggleDropdown();
 		}
 	};
 
 	return (
 		<>
-			<div className='input-search'>
+			<div className="input-search">
 				<InputSearch
-					handleChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
-						addSearch(target.value)
-					}
-					placeholder='Search movie'
-					inputName='movieSearch'
+					handleChange={({ target }: React.ChangeEvent<HTMLInputElement>) => addSearch(target.value)}
+					placeholder="Search movie"
+					inputName="movieSearch"
 					value={search}
 					handleFocus={() => !isDropdownOpen && toggleDropdown()}
 					handleInputClear={() => addSearch('')}
