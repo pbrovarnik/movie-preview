@@ -1,0 +1,29 @@
+.movie-trailer {
+	height: 60vh;
+	margin-bottom: 1.5rem;
+
+	@include respond(400) {
+		height: 41vh !important;
+	}
+
+	@include respond(500) {
+		height: 50vh;
+	}
+
+	@include respond(700) {
+		height: 55vh;
+	}
+
+	@include respond(1500) {
+		height: 70vh;
+	}
+
+	& > div {
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	&--loading {
+		background-color: $black-color;
+	}
+}

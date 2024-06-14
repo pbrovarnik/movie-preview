@@ -1,0 +1,33 @@
+.input-search {
+	display: inline-block;
+	grid-column: 3 / span 3;
+
+	&__field {
+		width: 35vw;
+		height: 3.5rem;
+		font-size: $default-font-size;
+		text-indent: 0.8rem;
+		outline: none;
+		border-radius: 3px;
+		border: 2px solid darken($white-color, 15%);
+		transition: all 0.1s;
+
+		&:focus {
+			border: 2px solid $primary-color;
+			color: lighten($black-color, 20%);
+		}
+
+		@include respond(700) {
+			height: 3rem;
+		}
+
+		@include respond(700) {
+			width: 45vw;
+		}
+	}
+
+	@include respond(600) {
+		position: absolute;
+		width: 100%;
+	}
+}

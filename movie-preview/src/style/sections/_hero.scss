@@ -1,0 +1,59 @@
+.hero {
+	grid-row: 1 / 2;
+	background: linear-gradient(to right, $secondary-color, $secondary-color-dark);
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+
+	&__body {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		justify-items: center;
+		align-items: center;
+
+		@include respond(600) {
+			display: flex;
+			justify-content: space-between;
+			margin-right: 1.5rem;
+		}
+	}
+
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		grid-column: 1 / span 2;
+		justify-self: start;
+		margin-left: 1.5rem;
+		cursor: pointer;
+	}
+
+	&__title {
+		color: $white-color;
+		font-size: $md-font-size;
+		margin: 1.5rem;
+
+		@include respond(700) {
+			font-size: $sm-font-size;
+		}
+
+		@include respond(600) {
+			font-size: $md-font-size;
+		}
+	}
+
+	&__icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		& > img {
+			width: 2rem;
+		}
+	}
+}
+
+.z-index-1 {
+	z-index: 1;
+}

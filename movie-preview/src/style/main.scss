@@ -1,0 +1,18 @@
+@import './abstracts/mixins';
+@import './abstracts/variables';
+
+@import './base/base';
+@import './base/typography';
+
+@import './components/search';
+@import './components/mobile-search';
+
+@import './layout/dots';
+@import './layout/dropdown';
+@import './layout/spinner';
+
+@import './sections/footer';
+@import './sections/hero';
+@import './sections/movie-reviews';
+@import './sections/movie-suggestion';
+@import './sections/movie-trailer';
