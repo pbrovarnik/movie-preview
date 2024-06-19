@@ -7,3 +7,7 @@ This repository contains a project related to movie previews. It includes a web 
 The web application is built using HTML, CSS, and TypeScript, React, with integration to The MovieDB (TMDb), The Open Movie Database (OMDb), and YouTube API's for fetching movie data. Users can search for specific movies, view detailed information about each movie, and watch trailers directly on the platform.
 
 Feel free to explore the various features of the project and contribute to its development.
+
+APP_TMDB_KEY=68475f6c6a3dd0d5fda299f9ce48a964
+APP_OMDB_KEY=fd6d2953
+APP_YT_KEY=AIzaSyCxGUyXySTWkPlnH8bKmGkvN3w3n-NzcY4
