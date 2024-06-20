@@ -11,6 +11,23 @@
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300|Material+Icons" rel="stylesheet" type="text/css" />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
+		<!-- Start of workaround for SPA to work with GitHub Pages -->
+		<script type="text/javascript">
+			(function (l) {
+				if (l.search[1] === '/') {
+					var decoded = l.search
+						.slice(1)
+						.split('&')
+						.map(function (s) {
+							return s.replace(/~and~/g, '&');
+						})
+						.join('?');
+					window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+				}
+			})(window.location);
+		</script>
+		<!-- End of workaround for SPA to work with GitHub Pages -->
+
 		<title>Movie Preview</title>
 	</head>
 	<body>

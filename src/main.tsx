@@ -20,7 +20,7 @@ const router = createBrowserRouter(
 		</Route>
 	),
 	{
-		basename: '/movie-preview',
+		basename: import.meta.env.BASE_URL,
 	}
 );
 
